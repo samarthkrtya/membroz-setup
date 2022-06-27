@@ -1,0 +1,267 @@
+[
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd5384", 
+        "solution" : "club", 
+        "category" : "Hair Care", 
+        "service" : "Color & Highlights", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd5385", 
+        "solution" : "salon", 
+        "category" : "Hair Care", 
+        "service" : "Perm & Straightening", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd5386", 
+        "solution" : "salon", 
+        "category" : "Hair Care", 
+        "service" : "Haircuts Man", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd5387", 
+        "solution" : "salon", 
+        "category" : "Hair Care", 
+        "service" : "Haircuts Woman", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd5388", 
+        "solution" : "salon", 
+        "category" : "Facial Treatments", 
+        "service" : "Basic Facials", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd5389", 
+        "solution" : "salon", 
+        "category" : "Facial Treatments", 
+        "service" : "Deluxe Facials", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd538a", 
+        "solution" : "salon", 
+        "category" : "Facial Treatments", 
+        "service" : "Moisturizing Facials", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd538b", 
+        "solution" : "salon", 
+        "category" : "Facial Treatments", 
+        "service" : "Acne Treatments", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd538c", 
+        "solution" : "salon", 
+        "category" : "Facial Treatments", 
+        "service" : "Freckle Bleaching", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd538d", 
+        "solution" : "salon", 
+        "category" : "Anti-Aging Treatments", 
+        "service" : "Sea C Spa Treatment", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd538e", 
+        "solution" : "salon", 
+        "category" : "Anti-Aging Treatments", 
+        "service" : "Electro Ionization", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd538f", 
+        "solution" : "salon", 
+        "category" : "Eye Treatment", 
+        "service" : "Eye Rejuvenating", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd5390", 
+        "solution" : "salon", 
+        "category" : "Eye Treatment", 
+        "service" : "Eyelash Perm", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd5391", 
+        "solution" : "salon", 
+        "category" : "Body Massage", 
+        "service" : "Swedish Massage", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd5392", 
+        "solution" : "salon", 
+        "category" : "Body Massage", 
+        "service" : "Chair Massage", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b45fc31eb00c1ae0cd5393", 
+        "solution" : "salon", 
+        "category" : "Body Massage", 
+        "service" : "Foot Massage", 
+        "charges" : 0, 
+        "type" : "service"
+    },
+    { 
+        "_id" : "62b4645a1eb00c1ae0cd53b3", 
+        "category" : "Shampoo + Conditioner Combo", 
+        "imagegallery" : [
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635828977/y1agsrclg0bvyjacxysb.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "nytresecom083_1"
+            }, 
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635828977/ikys8nb9b13saapp1dyo.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "nytresecom083_2"
+            }, 
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635828978/jwwhgkz6djynaadaggym.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "nytresecom083_3"
+            }
+        ], 
+        "itemname" : "Tresemme Keratin Smooth With Argan Oil Shampoo + Conditioner Combo", 
+        "sale" : {
+            "rate" : 720
+        }, 
+        "solution" : "salon", 
+        "type" : "product"
+    },
+    { 
+        "_id" : "62b4645a1eb00c1ae0cd53b4", 
+        "category" : "Eye Shadow Palette", 
+        "imagegallery" : [
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635829293/ew4lpgsgx0luxwnsq30i.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "24504_h-8901030756405"
+            }, 
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635829294/hg57bv7tqukuiqahupoc.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "24504_s1-8901030756405"
+            }, 
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635829296/gcyxgfh0yhhjlcnvwaq4.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "24504_s3-8901030756405"
+            }, 
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635829299/wtovcayxkcskjc5izpgz.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "24504_s4-8901030756405"
+            }
+        ], 
+        "itemname" : "Lakme Absolute Infinity Eye Shadow Palette - Midnight Magic", 
+        "sale" : {
+            "rate" : 1000
+        }, 
+        "solution" : "salon", 
+        "type" : "product"
+    },
+    { 
+        "_id" : "62b4645a1eb00c1ae0cd53b5", 
+        "category" : "Makeup Primer", 
+        "imagegallery" : [
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635829473/akx0kbrnlxcl2trif62g.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "24815_h-8901030790065"
+            }, 
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635829474/t0oagoechgrqz3hh9mkc.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "24815_s2-8901030790065"
+            }, 
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635829476/aw3lffq3e56vybfkn2qg.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "24815_s3-8901030790065"
+            }
+        ], 
+        "itemname" : "Lakme Absolute Blur Perfect Makeup Primer - Mini", 
+        "sale" : {
+            "rate" : 299
+        }, 
+        "solution" : "salon", 
+        "type" : "product"
+    },
+    { 
+        "_id" : "62b4645a1eb00c1ae0cd53b6", 
+        "category" : "Mani-Pedi cure Product", 
+        "imagegallery" : [
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635833690/kmh2s9pmzw6gu3wo4bgr.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "pedicure-kit-135_1050x"
+            }
+        ], 
+        "itemname" : "Mani-Pedi cure Product", 
+        "sale" : {
+            "rate" : 5000
+        }, 
+        "solution" : "salon", 
+        "type" : "product"
+    },
+    { 
+        "_id" : "62b4645a1eb00c1ae0cd53b7", 
+        "category" : "Hair Serum", 
+        "imagegallery" : [
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635834019/dnb7gakstbmhfnqiufvn.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "hair-generic1"
+            }
+        ], 
+        "itemname" : "Hair Serum", 
+        "sale" : {
+            "rate" : 200
+        }, 
+        "solution" : "salon", 
+        "type" : "product"
+    },
+    { 
+        "_id" : "62b4645a1eb00c1ae0cd53b8", 
+        "category" : "Hair Dryer", 
+        "imagegallery" : [
+            {
+                "attachment" : "https://res.cloudinary.com/dlopjt9le/image/upload/v1635833973/cyvjg5vp2aadhxz8axmr.jpg", 
+                "extension" : "jpg", 
+                "originalfilename" : "51vM8J5FiHL._SL1227_"
+            }
+        ], 
+        "itemname" : "Hair Dryer", 
+        "sale" : {
+            "rate" : 4000
+        }, 
+        "solution" : "salon", 
+        "type" : "product"
+    }
+]

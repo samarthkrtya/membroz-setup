@@ -1,0 +1,158 @@
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from "@angular/router";
+import { Subject } from 'rxjs';
+
+declare var Clover: any;
+
+@Component({
+  selector: 'app-setup',
+  templateUrl: './setup.component.html',
+})
+export class SetupComponent implements OnInit, OnDestroy {
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  
+  _tabLists: any [] = [];
+  _defaultTabIndex: any;
+
+  submitData: any = {};
+  visible: boolean = false;
+
+  constructor() {
+   }
+  
+
+  async ngOnInit() {
+    try {
+      await this.initializeVariables();
+    } catch(error) {
+      console.error(error)
+    } finally {
+      this.onTabClick(0);
+      this.visible = true;
+    }
+    
+  }
+
+  async initializeVariables() {
+
+    console.log("init ")
+
+    this.submitData = {};
+    this.submitData["bussinessPostData"] = {};
+    this.submitData["solutiontype"] = "";
+    this.submitData["productServiceFacilityPostData"] = {};
+    this.submitData["membershipPostData"] = {};
+    this.submitData["staffsPostData"] = {};
+
+    this._tabLists.push({index: 0, tabname: "Bussiness", class: "disable", disable: false});
+    this._tabLists.push({index: 1, tabname: "Bussiness Type", class: "disable", disable: true});
+    this._tabLists.push({index: 2, tabname: "Product / Service / Facility", class: "disable", disable: true});
+    this._tabLists.push({index: 3, tabname: "Membership / Package", class: "disable", disable: true});
+    this._tabLists.push({index: 4, tabname: "Staffs", class: "disable", disable: true});
+    
+    return;
+  }
+
+  
+ 
+
+  async onTabClick(current: any) {
+    this._defaultTabIndex = current;
+    var tabObj = this._tabLists.find(p=>p.index == current);
+    if(tabObj) {
+      tabObj.disable = false;
+    }
+    return;
+  }
+
+  getBussinessSubmittedData(submit_data: any) {
+    this.submitData["bussinessPostData"] = {};
+    this.submitData["bussinessPostData"] = {...submit_data};
+    this.onTabClick(1);
+  }
+
+
+  bussinessTypePrevious() {
+    //Current 1
+    this.onTabClick(0);
+  }
+
+  bussinessTypeSkip() {
+    //Current 1
+    this.onTabClick(2);
+  }
+
+  getBussinessTypeSubmittedData(submit_data: any) {
+    //Current 1
+    this.submitData["solutiontype"] = "";
+    this.submitData["solutiontype"] = submit_data;
+    this.onTabClick(2);
+  }
+
+
+  productServiceFacilityPreviousData() {
+    //Current 2
+    this.onTabClick(1);
+  }
+
+  productServiceFacilitySkipData() {
+    //Current 2
+    this.onTabClick(3);
+  }
+
+  getProductServiceFacilitySubmittedData(submit_data: any) {
+    //Current 2
+    this.onTabClick(3);
+  }
+
+  membershipPreviousData() {
+    //Current 3
+    this.onTabClick(2);
+  }
+
+  membershipSkipData() {
+    //Current 3
+    this.onTabClick(4);
+  }
+
+  getMembershipSubmittedData(submit_data: any) {
+    //Current 3
+    this.onTabClick(4);
+  }
+
+
+  staffsPreviousData() {
+    //Current 4
+    this.onTabClick(3);
+  }
+
+  staffsSkipData() {
+    //Current 4
+    this.onTabClick(5);
+  }
+
+  getStaffsSubmittedData(submit_data: any) {
+    //Current 4
+    this.onTabClick(5);
+  }
+
+
+  reviewPreviousData() {
+    //Current 5
+    this.onTabClick(4);
+  }
+
+  getReviewSubmittedData(submit_data: any) {
+    // API CALL
+  }
+
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+
+
+}

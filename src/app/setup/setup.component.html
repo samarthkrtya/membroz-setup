@@ -1,0 +1,100 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="offset-xl-2 col-xl-8">
+          <div class="text-center pt-3 pb-2"><img style="max-width: 250px;max-height: 130px;" class="logo-main-img" src="https://res.cloudinary.com/dlopjt9le/image/upload/v1651125956/qyg3guvxtscgzksvf8qv.png"></div>
+          <div class="font-16 text-center">Let's get your all setup, so you can begin to start using our services</div>
+          <div class="card">
+            <div class="p-3">
+  
+              <mat-tab-group 
+                *ngIf="this.visible"
+                 
+                mat-align-tabs="start" 
+                [(selectedIndex)]="_defaultTabIndex">
+  
+                <mat-tab 
+                    [label]="tab.tabname" 
+                    *ngFor="let tab of _tabLists"
+                    [disabled]="tab.disable">
+  
+                    <ng-container *ngIf="_defaultTabIndex == 0">
+                      <app-bussiness-details-page
+                        [submitData]="submitData"
+                        (bussinessSubmitData)="getBussinessSubmittedData($event)">
+                      </app-bussiness-details-page>
+                    </ng-container>
+  
+                    <ng-container *ngIf="_defaultTabIndex == 1">
+                      <app-bussiness-type-page
+                        [submitData]="submitData"
+                        (bussinessTypeSubmitData)="getBussinessTypeSubmittedData($event)"
+                        (bussinessTypePreviousData)="bussinessTypePrevious()"
+                        (bussinessTypeSkipData)="bussinessTypeSkip()">
+                      </app-bussiness-type-page>
+                    </ng-container> 
+  
+                    <ng-container *ngIf="_defaultTabIndex == 2">
+                      <app-product-service-facility-page
+                        [submitData]="submitData"
+                        (productServiceFacilitySubmitData)="getProductServiceFacilitySubmittedData($event)"
+                        (productServiceFacilityPreviousData)="productServiceFacilityPrevious()"
+                        (productServiceFacilitySkipData)="productServiceFacilitySkip()">
+                      </app-product-service-facility-page>
+                    </ng-container>
+  
+                    <ng-container *ngIf="_defaultTabIndex == 3">
+                      <app-membership-package-page
+                        [submitData]="submitData"
+                        (membershipSubmitData)="getMembershipSubmittedData($event)"
+                        (membershipPreviousData)="membershipPrevious()"
+                        (membershipSkipData)="membershipSkip()">
+                      </app-membership-package-page>
+                    </ng-container>
+  
+                    <ng-container *ngIf="_defaultTabIndex == 4">
+                      <app-staffs-page
+                        [submitData]="submitData"
+                        (staffsSubmitData)="getStaffsSubmittedData($event)"
+                        (staffsPreviousData)="staffsPrevious()"
+                        (staffsSkipData)="staffsSkip()">
+                      </app-staffs-page>
+                    </ng-container>
+  
+                    <ng-container *ngIf="_defaultTabIndex == 5">
+                      <app-review-page
+                        [submitData]="submitData"
+                        (reviewSubmitData)="getReviewSubmittedData($event)"
+                        (reviewPreviousData)="reviewPrevious()">
+                      </app-review-page>
+                    </ng-container>
+  
+  
+                </mat-tab>
+              </mat-tab-group>
+  
+            </div> 
+          </div>
+          <div class="d-md-flex pb-3">
+            <div class="flex-md-grow-1 pb-md-0 pb-3 text-md-left text-center">© 99 Fix all Services. Power by <a href="https://www.membroz.com/" target="_blank">www.membroz.com</a></div>
+            <div class="ml-3 d-flex justify-content-center ">
+                <ul class="nav">                            
+                    <li class="nav-item">
+                      <a class="nav-link py-0 text-capitalize" href="#">Support</a>
+                    </li>
+                    <li class="nav-item dropup">
+                      <a class="nav-link dropdown-toggle py-0 text-capitalize" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        English
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Spanish</a>                               
+                      </div>
+                    </li>
+                    
+                  </ul>                        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
