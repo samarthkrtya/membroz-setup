@@ -8,15 +8,91 @@
             <div class="p-3">
   
               <mat-tab-group 
-                *ngIf="this.visible"
-                 
-                mat-align-tabs="start" 
+                mat-align-tabs="start"
                 [(selectedIndex)]="_defaultTabIndex">
-  
-                <mat-tab 
+
+                
+
+                <mat-tab label="Bussiness">
+
+                  _defaultTabIndex -- {{_defaultTabIndex}}
+                  {{this._tabLists[_defaultTabIndex] | json}}
+                  {{this._tabLists[_defaultTabIndex]['index']}}
+                  
+
+                  <app-bussiness-details-page
+                    *ngIf="_defaultTabIndex == 0"
+                    [submitData]="submitData"
+                    (bussinessSubmitData)="getBussinessSubmittedData($event)">
+                  </app-bussiness-details-page>
+
+                </mat-tab>
+
+                <mat-tab label="Bussiness Type">
+
+                  _defaultTabIndex -- {{_defaultTabIndex}}
+                  
+                  
+
+                  <app-bussiness-type-page
+                    *ngIf="_defaultTabIndex == 1"
+                    [submitData]="submitData"
+                    (bussinessTypeSubmitData)="getBussinessTypeSubmittedData($event)"
+                    (bussinessTypePreviousData)="bussinessTypePrevious()"
+                    (bussinessTypeSkipData)="bussinessTypeSkip()">
+                  </app-bussiness-type-page>
+
+                </mat-tab>
+
+                <mat-tab label="Product / Service / Facility">
+
+                  _defaultTabIndex -- {{_defaultTabIndex}}
+                  
+
+                  <app-product-service-facility-page
+                    *ngIf="_defaultTabIndex == 2"
+                    [submitData]="submitData"
+                    (productServiceFacilitySubmitData)="getProductServiceFacilitySubmittedData($event)"
+                    (productServiceFacilityPreviousData)="productServiceFacilityPrevious()"
+                    (productServiceFacilitySkipData)="productServiceFacilitySkip()">
+                  </app-product-service-facility-page>
+                </mat-tab>
+
+                <mat-tab label="Membership / Package">
+
+                  <app-membership-package-page
+                    *ngIf="_defaultTabIndex == 3"
+                    [submitData]="submitData"
+                    (membershipSubmitData)="getMembershipSubmittedData($event)"
+                    (membershipPreviousData)="membershipPrevious()"
+                    (membershipSkipData)="membershipSkip()">
+                  </app-membership-package-page>
+
+                </mat-tab>
+
+                <mat-tab label="Staffs">
+                  <app-bussiness-staffs-page
+                    *ngIf="_defaultTabIndex == 4"
+                    [submitData]="submitData"
+                    (staffsSubmitData)="getStaffsSubmittedData($event)"
+                    (staffsPreviousData)="staffsPrevious()"
+                    (staffsSkipData)="staffsSkip()">
+                  </app-bussiness-staffs-page>
+                </mat-tab>
+
+                <mat-tab label="Review">
+                  <app-bussiness-review-page
+                    *ngIf="_defaultTabIndex == 5"
+                    [submitData]="submitData"
+                    (reviewSubmitData)="getReviewSubmittedData($event)"
+                    (reviewPreviousData)="reviewPrevious()">
+                  </app-bussiness-review-page>
+                </mat-tab>
+
+                <!-- <mat-tab 
                     [label]="tab.tabname" 
                     *ngFor="let tab of _tabLists"
-                    [disabled]="tab.disable">
+                   >
   
                     <ng-container *ngIf="_defaultTabIndex == 0">
                       <app-bussiness-details-page
@@ -25,7 +101,7 @@
                       </app-bussiness-details-page>
                     </ng-container>
   
-                    <!-- <ng-container *ngIf="_defaultTabIndex == 1">
+                    <ng-container *ngIf="_defaultTabIndex == 1">
                       <app-bussiness-type-page
                         [submitData]="submitData"
                         (bussinessTypeSubmitData)="getBussinessTypeSubmittedData($event)"
@@ -67,10 +143,11 @@
                         (reviewSubmitData)="getReviewSubmittedData($event)"
                         (reviewPreviousData)="reviewPrevious()">
                       </app-bussiness-review-page>
-                    </ng-container> -->
+                    </ng-container>
   
   
-                </mat-tab>
+                </mat-tab> -->
+
               </mat-tab-group>
   
             </div> 

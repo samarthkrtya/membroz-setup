@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subject } from 'rxjs';
-
 @Component({
   selector: 'app-bussiness-setup',
   templateUrl: './bussiness-setup.component.html',
@@ -12,8 +11,16 @@ export class BussinessSetupComponent  implements OnInit, OnDestroy{
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   
-  _tabLists: any [] = [];
-  _defaultTabIndex: any;
+  _tabLists: any [] = [
+    {index: 0, tabname: "Bussiness", class: "disable", disable: true},
+    {index: 1, tabname: "Bussiness Type", class: "disable", disable: true},
+    {index: 2, tabname: "Product / Service / Facility", class: "disable", disable: true},
+    {index: 3, tabname: "Membership / Package", class: "disable", disable: true},
+    {index: 4, tabname: "Staffs", class: "disable", disable: true},
+    
+  ];
+  
+  _defaultTabIndex: number;
 
   submitData: any = {};
   visible: boolean = false;
@@ -28,15 +35,12 @@ export class BussinessSetupComponent  implements OnInit, OnDestroy{
     } catch(error) {
       console.error(error)
     } finally {
-      this.onTabClick(0);
-      this.visible = true;
+      this._defaultTabIndex = 0;
     }
     
   }
 
   async initializeVariables() {
-
-    console.log("init ")
 
     this.submitData = {};
     this.submitData["bussinessPostData"] = {};
@@ -44,13 +48,6 @@ export class BussinessSetupComponent  implements OnInit, OnDestroy{
     this.submitData["productServiceFacilityPostData"] = {};
     this.submitData["membershipPostData"] = {};
     this.submitData["staffsPostData"] = {};
-
-    this._tabLists.push({index: 0, tabname: "Bussiness", class: "disable", disable: false});
-    this._tabLists.push({index: 1, tabname: "Bussiness Type", class: "disable", disable: true});
-    this._tabLists.push({index: 2, tabname: "Product / Service / Facility", class: "disable", disable: true});
-    this._tabLists.push({index: 3, tabname: "Membership / Package", class: "disable", disable: true});
-    this._tabLists.push({index: 4, tabname: "Staffs", class: "disable", disable: true});
-    
     return;
   }
 
