@@ -1,0 +1,37 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="offset-xl-2 col-xl-8">
+                <div class="text-center pt-3 pb-2"><img style="max-width: 250px;max-height: 130px;"
+                        class="logo-main-img"
+                        src="https://res.cloudinary.com/dlopjt9le/image/upload/v1586525260/mlh7afpkmoldnuo3qltc.png">
+                </div>
+                <div class="font-16 text-center">Let's get your all setup, so you can begin to start using our services
+                </div>
+            <div class="card">
+                <div class="p-3">
+                    <mat-tab-group [(selectedIndex)]="index">
+                        <!-- [disabled]="index != 0" -->
+                        <mat-tab [label]="'Member'" > 
+                            <app-member-profile (onSaveSuccess)="onSaveSuccessMember($event)" *ngIf="index == 0"></app-member-profile>
+                        </mat-tab>
+                        <!-- [disabled]="index != 1"  -->
+                        <mat-tab [label]="'Package'" >
+                            <app-packages [memberdetails]="memberdetails" (onSaveSuccess2)="onSaveSuccessPackage($event)"  *ngIf="index == 1"></app-packages>
+                        </mat-tab>
+                        <mat-tab [label]="'Personal Details'">
+                            <app-personal-details [packagedetails]="packagedetails" (onSaveSuccess3)="onSaveSuccessPd($event)"   *ngIf="index == 2"></app-personal-details>
+                        </mat-tab>
+                        <mat-tab [label]="'PARQ Form'">
+                            <app-parq-form (onSaveSuccess4)="onSaveSuccessPQ($event)"  *ngIf="index == 3"></app-parq-form>
+                        </mat-tab>
+                        <mat-tab [label]="'Card Details'">
+                            <app-credit-card-details (onSaveSuccess4)="onSaveSuccessPQ($event)"  *ngIf="index == 4"></app-credit-card-details>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+         </div>
+        </div>
+    </div>
+</div>

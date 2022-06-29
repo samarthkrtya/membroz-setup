@@ -1,0 +1,41 @@
+
+<div class="text-center mb-3">
+    <h3 class="mb-1">Please read contract details from here </h3>
+    <div class="font-16">check wheather condition is fullfilled or not </div>
+</div>
+<div class="loader" *ngIf="isLoading;else templ">
+    <svg class="circular" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10" />
+    </svg>
+</div>
+<ng-template #templ>
+        <div class="row">
+            <div class="offset-xl-1 col-xl-10">
+                <div class="mb-3"></div>
+                <div id="printid">
+                    <div [innerHTML]="doctemplate | safeHtml"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-xl-1 col-xl-10">
+                <div class="row">
+                    <div class="col-sm-6 text-left">
+                        <mat-checkbox 
+                            class="example-margin"
+                            [(ngModel)]="checked">
+                            I read and understand all this
+                        </mat-checkbox>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <button  class="btn btn-primary justify-content-end" type="button" (click)="onNext()" [disabled]="!checked">
+                             Next
+                             <i class="material-icons">east</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</ng-template>
+
+ 

@@ -1,0 +1,115 @@
+<div class="text-center mb-3">
+    <h3 class="mb-1">next step is your card details</h3>
+    <div class="font-16">Add your card details for payment options</div>
+</div>
+<div class="loader" *ngIf="isLoading;else templ">
+    <svg class="circular" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10" />
+    </svg>
+</div>
+<ng-template #templ>
+    <form [formGroup]="cardForm" autocomplete="off" (ngSubmit)="onSubmitMethod(cardForm.value,cardForm.valid)">
+            <div class="row">
+                <div class="offset-xl-1 col-xl-10">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="col-form-label">Card Number
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="position-relative">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text"  matInput formControlName="number" autocomplete="off">
+                                </mat-form-field>
+                                <div [hidden]="cardForm.get('number').valid || (cardForm.get('number').pristine && !submitted)"
+                                    class="text-danger">
+                                    <small *ngIf="cardForm.get('number').hasError('required')" class="error-label">
+                                        Card Number is Required
+                                    </small>
+                                    <small
+                                        *ngIf="cardForm.get('number').hasError('insertonlypositivenumber') || cardForm.get('number').hasError('insertvalidcard')"
+                                        class="error-label">
+                                        Card Number is invalid
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="col-form-label">Expiry Date
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="picker" autocomplete="off" formControlName="expiry"
+                                    [min]="today">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker startView="multi-year" (monthSelected)="monthSelected($event)">
+                                </mat-datepicker>
+                            </mat-form-field>
+
+                            <div [hidden]="cardForm.get('expiry').valid || (cardForm.get('expiry').pristine && !submitted)"
+                                class="text-danger">
+                                <small *ngIf="cardForm.get('expiry').hasError('required')" class="error-label">
+                                    Expiry Date is Required
+                                </small>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="col-form-label"> CVC / CVV
+                                <span class="text-danger">*</span>
+                            </label>
+                            <mat-form-field class="example-full-width">
+                                <input type="password" matInput formControlName="csv" autocomplete="off">
+                            </mat-form-field>
+                            <div [hidden]="cardForm.get('csv').valid || (cardForm.get('csv').pristine && !submitted)"
+                                class="text-danger">
+                                <small *ngIf="cardForm.get('csv').hasError('required')" class="error-label">
+                                    CVV is Required
+                                </small>
+                                <small
+                                    *ngIf="cardForm.get('csv').hasError('insertonlypositivenumber') || cardForm.get('csv').hasError('insertonlythreenumber')"
+                                    class="error-label">
+                                    CVV is invalid
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-form-label"> Cardholder Name'
+                                <span class="text-danger">*</span>
+                            </label>
+                            <mat-form-field class="example-full-width">
+                                <input type="text" matInput formControlName="holdername">
+                            </mat-form-field>
+                            <div [hidden]="cardForm.get('holdername').valid || (cardForm.get('holdername').pristine && !submitted)"
+                                class="text-danger">
+                                <small *ngIf="cardForm.get('holdername').hasError('required')" class="error-label">
+                                    Cardholder is Required
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="mt-2 mb-3">
+                                <mat-checkbox formControlName="terms">I agree to the<a href="#">Terms of Service</a>.
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <p>Your billing information will be encrypted and is 100% safe with our payment processing
+                                partner.</p>
+                            <p>Payment information is not stored on our servers.</p>
+                        </div>
+
+                    </div>
+                </div>
+             </div> 
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <button class="btn btn-primary justify-content-end" type="submit">
+                        NEXT
+                        <i class="material-icons">east</i>
+                   </button>
+                </div>
+            </div>
+        
+    </form>
+</ng-template>

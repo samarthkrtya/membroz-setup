@@ -1,0 +1,52 @@
+<div class="text-center mb-3">
+    <h3 class="mb-1"> </h3>
+    <div class="font-16">Select any Membership from here </div>
+</div>
+<div class="loader" *ngIf="isLoading;else templ">
+    <svg class="circular" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10" />
+    </svg>
+</div>
+<ng-template #templ>
+    <div class="row">
+        <div class="offset-xl-1 col-xl-10">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row membroz-row" *ngIf="membershipList.length > 0">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6 membroz-col d-flex"
+                            *ngFor="let membership of membershipList">
+                            <div class="card card-border" style="height: 150px;">
+                                <div class="card-body card-body-10">
+                                    <div class="d-flex justify-content-end mb-1">
+                                        <section class="example-section">
+                                            <mat-checkbox [(ngModel)]="membership.checked" [id]="membership._id"
+                                                (change)="onChange($event)" class="example-margin">
+                                            </mat-checkbox>
+                                        </section>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <div class="staff-title">
+                                            <span class="font-bold">{{membership.membershipname}}</span>
+                                            <br>
+                                            {{membership?.property?.cost}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <button class="btn btn-primary justify-content-end" type="button" (click)="onNext()">
+                NEXT
+                <i class="material-icons">east</i>
+           </button>
+        </div>
+    </div>
+
+</ng-template>
