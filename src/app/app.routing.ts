@@ -1,11 +1,12 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
-import { SetupComponent } from './setup/setup.component';
-
 export const AppRoutes: Routes = [
-    { path: '', redirectTo: 'setup', pathMatch: 'full' },
-    { path: 'setup', component: SetupComponent },
+    { path: '', redirectTo: 'bussiness-setup', pathMatch: 'full' },
+    {
+        path: 'bussiness-setup',
+        loadChildren: () => import('./bussiness-setup/bussiness-setup.module').then(m => m.BussinessSetupModule),
+    },
     {
         path: 'member-setup',
         loadChildren: () => import('./member-setup/member-setup.module').then(m => m.MemberSetupModule),

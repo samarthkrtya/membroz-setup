@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 declare var $: any;
 
+
 @Component({
   selector: 'app-bussiness-details-page',
   templateUrl: './bussiness-details-page.component.html',
@@ -65,6 +66,7 @@ export class BussinessDetailsPageComponent implements OnInit {
   get f() { return this.form.controls; }
 
   async initlizationVariables() {
+    console.log("first tab");
     return;
   }
 

@@ -2,13 +2,13 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subject } from 'rxjs';
 
-declare var Clover: any;
-
 @Component({
-  selector: 'app-setup',
-  templateUrl: './setup.component.html',
+  selector: 'app-bussiness-setup',
+  templateUrl: './bussiness-setup.component.html',
+  styles: [
+  ]
 })
-export class SetupComponent implements OnInit, OnDestroy {
+export class BussinessSetupComponent  implements OnInit, OnDestroy{
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   
@@ -152,7 +152,5 @@ export class SetupComponent implements OnInit, OnDestroy {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-
-
 
 }

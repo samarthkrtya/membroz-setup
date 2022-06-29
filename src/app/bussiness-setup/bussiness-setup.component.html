@@ -25,7 +25,7 @@
                       </app-bussiness-details-page>
                     </ng-container>
   
-                    <ng-container *ngIf="_defaultTabIndex == 1">
+                    <!-- <ng-container *ngIf="_defaultTabIndex == 1">
                       <app-bussiness-type-page
                         [submitData]="submitData"
                         (bussinessTypeSubmitData)="getBussinessTypeSubmittedData($event)"
@@ -53,21 +53,21 @@
                     </ng-container>
   
                     <ng-container *ngIf="_defaultTabIndex == 4">
-                      <app-staffs-page
+                      <app-bussiness-staffs-page
                         [submitData]="submitData"
                         (staffsSubmitData)="getStaffsSubmittedData($event)"
                         (staffsPreviousData)="staffsPrevious()"
                         (staffsSkipData)="staffsSkip()">
-                      </app-staffs-page>
+                      </app-bussiness-staffs-page>
                     </ng-container>
   
                     <ng-container *ngIf="_defaultTabIndex == 5">
-                      <app-review-page
+                      <app-bussiness-review-page
                         [submitData]="submitData"
                         (reviewSubmitData)="getReviewSubmittedData($event)"
                         (reviewPreviousData)="reviewPrevious()">
-                      </app-review-page>
-                    </ng-container>
+                      </app-bussiness-review-page>
+                    </ng-container> -->
   
   
                 </mat-tab>
