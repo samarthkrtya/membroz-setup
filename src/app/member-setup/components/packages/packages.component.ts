@@ -16,12 +16,11 @@ export class PackagesComponent implements OnInit {
 
   @Output() onSaveSuccess : EventEmitter<any> = new EventEmitter<any>();
   
- async ngOnInit() {
-    console.log('packages =>');
+ async ngOnInit() { 
     try{
-    this.isLoading = true;
-    await this.LoadData();
-    this.isLoading = false;
+      this.isLoading = true;
+      await this.LoadData();
+      this.isLoading = false;
     }catch(e){
       this.isLoading = false;
     }
