@@ -1,0 +1,120 @@
+<div class="text-center mb-3">
+    <h3 class="mb-1">Add your unit size & maintenance</h3>   
+    <div class="font-16">Add your building unit size & maintenance details</div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-8 ml-auto mr-auto d-flex justify-content-center">
+        <div class="inline-block text-right">
+            <button 
+                class="btn btn-primary mrtb0">
+                Add Unit Type <b class="caret"></b>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-10 col-md-12 ml-auto mr-auto">                                                    
+        <div class="row align-items-center justify-content-center">
+
+            <div class="col-3">
+                <label class="col-form-label">
+                    Unit Type 
+                </label>
+                <mat-form-field class="example-full-width mat-form-field-space-remove">
+                    <input matInput>
+                </mat-form-field> 
+            </div>
+
+            <div class="col-3">
+                <label class="col-form-label">
+                    Size (Sq.ft)                                                             
+                </label>
+
+                <mat-form-field class="example-full-width mat-form-field-space-remove">
+                    <input matInput type="number" maxlength="6">
+                </mat-form-field> 
+            </div>
+
+            <div class="col-3">
+
+                <label class="col-form-label">
+                    Maintenance Charge
+                </label>
+
+                <mat-form-field class="example-full-width mat-form-field-space-remove">
+                    <input matInput type="number" maxlength="6">
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-2">
+                
+                <button
+                    type="button" 
+                    rel="tooltip" 
+                    data-placement="left" 
+                    data-toggle="tooltip"
+                    title="Clone" 
+                    data-original-title="Clone"
+                    class="btn btn-link btn-primary btn-just-icon edit">
+                    <i class="material-icons">content_copy</i>
+                </button>
+
+                <button
+                    type="button" 
+                    rel="tooltip" 
+                    data-placement="left" 
+                    data-toggle="tooltip"
+                    title="Clone" 
+                    data-original-title="Clone"
+                    class="btn btn-link btn-primary btn-just-icon edit">
+                    <i class="material-icons">delete</i>
+                </button>
+
+            </div>
+            
+            
+            
+
+        </div>
+            
+        
+    </div>
+</div>
+
+<div class="d-flex mt-4">
+
+    <div class="flex-grow-1">
+        <button 
+            (click)="previous()"
+            class="btn btn-outline-primary"
+            type="button">
+            <i class="material-icons">west</i> 
+            Previous
+        </button>
+    </div>
+
+    <div>
+
+        <button 
+            (click)="skip()"
+            id="skip"
+            type="button" 
+            style="margin-right: 20px;"
+            class="btn btn-outline-primary">
+            Skip
+            <i class="material-icons">skip_next</i>
+        </button>
+
+        <button 
+            (click)="next()"
+            type="button" 
+            class="btn btn-primary justify-content-end">
+            Next
+            <i class="material-icons">east</i>
+        </button>
+
+    </div>
+</div>

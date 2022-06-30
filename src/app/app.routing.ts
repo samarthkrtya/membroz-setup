@@ -5,11 +5,11 @@ export const AppRoutes: Routes = [
     { path: '', redirectTo: 'bussiness-setup', pathMatch: 'full' },
     {
         path: 'bussiness-setup',
-        loadChildren: () => import('./bussiness-setup/bussiness-setup.module').then(m => m.BussinessSetupModule),
+        loadChildren: () => import('./pages/bussiness-setup/bussiness-setup.module').then(m => m.BussinessSetupModule),
     },
     {
         path: 'member-setup',
-        loadChildren: () => import('./member-setup/member-setup.module').then(m => m.MemberSetupModule),
+        loadChildren: () => import('./pages/member-setup/member-setup.module').then(m => m.MemberSetupModule),
     },
 ];
 export const routing: ModuleWithProviders<any> = RouterModule.forRoot(AppRoutes);

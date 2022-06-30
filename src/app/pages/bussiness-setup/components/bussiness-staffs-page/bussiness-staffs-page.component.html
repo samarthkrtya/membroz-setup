@@ -1,0 +1,152 @@
+<div class="text-center mb-3">
+    <h3 class="mb-1">Add your Staff</h3>   
+    <div class="font-16">Add your Staff for service</div>
+</div>
+
+<form 
+    [formGroup]="form" 
+    (ngSubmit)="onSubmit(form.value, form.valid)" 
+    novalidate 
+    class="form-horizontal mb-0">
+
+    <div class="row mb-3">
+        <div class="col-md-8 ml-auto mr-auto d-flex justify-content-center">
+    
+            <div class="dropdown inline-block text-right">
+                <button  class="dropdown-toggle btn btn-primary mrtb0"
+                    data-toggle="dropdown">
+                    Add Staff
+                    <b class="caret"></b>
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-right">
+
+                    <a class="dropdown-item" *ngFor="let item of designationLists" (click)="addNewItem(item._id)">
+                        Add {{item.title}}
+                    </a>
+                                                    
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+
+    <div 
+        formArrayName="items"
+        *ngFor="let item of form.get('items')['controls']; let i = index;">
+
+        <div class="row" [formGroupName]="i">
+            
+            <div class="col-lg-10 col-md-12 ml-auto mr-auto">   
+
+                <div class="row align-items-center justify-content-center">
+
+                    <div class="col-4">
+                        
+                        <label class="col-form-label">
+                            Designation
+                        </label>
+
+                        <mat-form-field class="example-full-width mat-form-field-space-remove" >
+                            <mat-select formControlName="designation">
+                                <mat-option 
+                                    [value]="item._id" 
+                                    disabled
+                                    *ngFor="let item of designationLists">
+                                    {{item.title}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <div
+                            [hidden]="this.form.get('items').at(i).get('designation').valid || (this.form.get('items').at(i).get('designation').pristine && !submitted)"
+                            class="text-danger">
+                            <small *ngIf="this.form.get('items').at(i).get('designation').hasError('required')" class="error-label">
+                                {{getLang('designationisrequired', 'designation is Required')}}
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <div class="col-4">
+                        <label class="col-form-label">
+                            Name                                                            
+                        </label>
+
+                        <mat-form-field class="example-full-width mat-form-field-space-remove">
+                            <input matInput formControlName="name">
+                        </mat-form-field> 
+
+                        <div
+                            [hidden]="this.form.get('items').at(i).get('name').valid || (this.form.get('items').at(i).get('name').pristine && !submitted)"
+                            class="text-danger">
+                            <small *ngIf="this.form.get('items').at(i).get('name').hasError('required')" class="error-label">
+                                {{getLang('nameisrequired', 'name is Required')}}
+                            </small>
+                        </div>
+
+                    </div>
+                    
+                    <div class="col-auto">
+                        <button
+                            (click)="addCloneItem(i)"                                                          
+                            type="button" 
+                            rel="tooltip" 
+                            data-placement="left" 
+                            data-toggle="tooltip"
+                            title="Clone" 
+                            data-original-title="Clone"
+                            class="btn btn-link btn-primary btn-just-icon edit">
+                            <i class="material-icons">content_copy</i>
+                        </button>  
+
+                        <button
+                            (click)="removeItem(i)"                                                          
+                            type="button" 
+                            rel="tooltip" 
+                            data-placement="left" 
+                            data-toggle="tooltip"
+                            title="Clone" 
+                            data-original-title="Clone"
+                            class="btn btn-link btn-primary btn-just-icon edit">
+                            <i class="material-icons">delete</i>
+                        </button>  
+                    </div>
+                    
+                </div>
+            </div>
+        </div> 
+
+        
+    </div>
+
+
+    <div class="d-flex mt-4">
+
+        <div class="flex-grow-1">
+
+            <button 
+                (click)="previous()"
+                class="btn btn-outline-primary"
+                type="button"
+                [disabled]="disableBtn">
+                <i class="material-icons">west</i> {{getLang('previous', 'Previous')}} 
+            </button>
+
+        </div>
+
+        <div>
+
+            <button 
+                id="submit"
+                type="submit" 
+                [disabled]="disableBtn"
+                class="btn btn-primary justify-content-end">
+                    {{getLang('finish', 'Finish')}} <i class="material-icons">done</i>
+            </button>
+
+        </div>
+    </div>
+
+</form>
