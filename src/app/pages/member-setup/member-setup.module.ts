@@ -11,7 +11,6 @@ import { PersonalDetailsComponent } from './components/personal-details/personal
 import { ParqFormComponent } from './components/parq-form/parq-form.component';
 import { SafeHtmlPipe } from './safehtml.pipe';
 import { CreditCardDetailsComponent } from './components/credit-card-details/credit-card-details.component';
-import { CommonService } from '../core/services/common.service';
 
 
 import { FileUploadModule } from 'ng2-file-upload';
@@ -19,7 +18,7 @@ import { Cloudinary } from 'cloudinary-core';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 
 import { config } from '../config';
-
+import { SignaturePadModule } from '../shared/signature-pad/signature-pad.module';
 
 const cloudinaryLib = {
   Cloudinary: Cloudinary
@@ -43,6 +42,7 @@ const cloudinaryLib = {
     MemberSetupRoutingModule, 
     FileUploadModule,
     CloudinaryModule.forRoot(cloudinaryLib, config),
+    SignaturePadModule
   ]
 })
 export class MemberSetupModule { }

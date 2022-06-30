@@ -1,0 +1,20 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title">Signature {{selectedField._id}} </h4>
+        <button type="button" class="close" id="closesign" data-dismiss="modal"  (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <input type="hidden">
+        <div class="container">
+            <div class="row">
+                <ngx-signature-pad #testPadTest [config]="config"></ngx-signature-pad>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" (click)="clear()"> clear </button>
+        <button class="btn btn-primary ml-2" type="button" (click)="save()">
+            <i class="material-icons">save</i>Save
+        </button>
+    </div>
+</div>

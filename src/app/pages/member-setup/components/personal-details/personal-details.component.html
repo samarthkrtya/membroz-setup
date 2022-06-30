@@ -36,6 +36,14 @@
             </div>
         </div>
     </div>
-</ng-template>
+</ng-template> 
 
  
+
+
+<button id="myModalFormfieldPopup"  type="button" class="d-none" data-toggle="modal"   data-keyboard="false" data-target="#myModalFormfield"></button>
+<div id="myModalFormfield" class="modal fade" role="dialog">
+    <div class="modal-dialog"> 
+        <app-signature-pad *ngIf="selectedField" [selectedField]="selectedField" (onSave)="onSaveSign($event)" ></app-signature-pad>
+    </div>
+</div>   
