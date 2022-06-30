@@ -17,8 +17,8 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { Cloudinary } from 'cloudinary-core';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 
-import { config } from '../config';
-import { SignaturePadModule } from '../shared/signature-pad/signature-pad.module';
+import { config } from '../../config';
+import { SignaturePadModule } from '../../shared/signature-pad/signature-pad.module';
 
 const cloudinaryLib = {
   Cloudinary: Cloudinary

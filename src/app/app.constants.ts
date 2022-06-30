@@ -20,6 +20,7 @@ export class Configuration {
     this.headers = this.headers.set('Content-Type', 'application/json');
     this.headers = this.headers.set('Accept', 'application/json');
     this.headers = this.headers.set('Access-Control-Allow-Origin', '*');
+    this.headers = this.headers.set('authKey', '613074c9bfd7602f90774d32');
     
     this.baseUrl = location.origin + '/#';
 
