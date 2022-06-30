@@ -10,12 +10,10 @@
                 </div>
             <div class="card">
                 <div class="p-3">
-                    <mat-tab-group [(selectedIndex)]="index">
-                        
+                    <mat-tab-group [(selectedIndex)]="index">                        
                         <mat-tab [label]="'Member'" > 
                             <app-member-profile (onSaveSuccess)="onSaveSuccessMember($event)" *ngIf="index == 0"></app-member-profile>
                         </mat-tab>
-                        
                           <mat-tab [label]="'Package'" >
                             <app-packages [memberdetails]="memberdetails" (onSaveSuccess2)="onSaveSuccessPackage($event)"  *ngIf="index == 1"></app-packages>
                         </mat-tab>
