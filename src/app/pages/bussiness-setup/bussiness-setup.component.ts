@@ -179,6 +179,7 @@ export class BussinessSetupComponent extends BaseComponemntComponent implements 
     return this._commonService
       .commonServiceByUrlMethodDataAsync(url, method, postData)
       .then((data: any) => {
+        console.log("data", data);
         if (data) {
           this.designationLists = [];
           this.designationLists = data;
