@@ -21,7 +21,7 @@ declare var $ : any;
 })
 export class ParqFormComponent implements OnInit , OnChanges  , AfterViewChecked {
 
-  public anchors: any;
+  public htmlElement: any;
 
   doctemplate : any = {};
   isLoading : boolean = false;
@@ -37,59 +37,42 @@ export class ParqFormComponent implements OnInit , OnChanges  , AfterViewChecked
 
   constructor(private _commonService : CommonService, private elementRef:ElementRef,) { }
 
- async ngOnInit() {
-  console.log('ngOnInit parq =>');
+  async ngOnInit() {
     this.isLoading = true;
     await this.getformFields();
     await this.getLoadForm();
     this.isLoading = false;
   }
 
-  ngOnChanges() {   
+  ngOnChanges() {
    
   }
 
-
   ngAfterViewChecked() {
-    // this.anchors = this.elementRef.nativeElement.querySelectorAll('.hasyourdoctor') as HTMLElement;
-    // console.log('this.anchors =>', this.anchors);
-    // this.anchors.forEach((anchor: HTMLElement) => {
-    //   console.log('anchor =>', anchor);
-    //   $(`#${anchor.id}`).attr('checked', true);
-    //   anchor.addEventListener('click', this.handleAnchorClick);
-    // });
-    // console.log('this.formfields =>', this.formfields);
-    // if(this.formfields.length > 0){
-    //   this.formfields.forEach(fields => {
-    //     let fieldEle = this.elementRef.nativeElement.querySelector(`#${fields._id}`) as HTMLElement
-    //     fieldEle.addEventListener('click', this.handleAnchorClick);
-    //   });
-      // console.log('this.anchors =>', this.anchors);
-      // this.anchors.addEventListener('change', this.handleAnchorClick);
-    // }
+    // 626ccd7a15ec4f47c12d6058   yes
+    // 626ccdc915ec4f47c12d605e   no
 
-    // const ele1 = this.elementRef.nativeElement.querySelector("[id='626ccd7a15ec4f47c12d6058']") as HTMLElement;
-    // const ele2 = this.elementRef.nativeElement.querySelector("[id='626ccdc915ec4f47c12d605e']") as HTMLElement;
-
-    // ele1.addEventListener('change',()=>{ 
-    //   console.log('ele1 =>',ele1);
-    //   $(`#626ccdc915ec4f47c12d605e`).attr('checked', false);
-    // })
-    // ele2.addEventListener('change',()=>{ 
-    //   console.log('ele2 =>',ele2);
-    //   $(`#626ccd7a15ec4f47c12d6058`).attr('checked', false);
-    // })
-    console.log('this.formfields =>', this.formfields);
     if(this.formfields.length > 0){
-      this.formfields.forEach((fields, i) => {
-        $("#"+fields._id).click(function () {
-          console.log('fields._id =>',fields._id);
-          // $(`input:checkbox[id=${this.formfields[i+1]._id}]`).prop('checked',false);
-        });
+      var tempthis = this;
+      this.formfields.forEach((fields) => {
+        if(fields.fieldtype == "checkbox"){
+          $("#"+fields._id).click(function () {
+            let ele1 = document.getElementById(fields._id) as HTMLElement;
+            if(ele1){
+              tempthis.htmlElement = tempthis.elementRef.nativeElement.querySelectorAll(`.${ele1.className}`);
+              if(tempthis.htmlElement.length > 0){
+              tempthis.htmlElement.forEach((fld : HTMLElement ) => {
+                const newid = tempthis.formfields.find(b=>b.fieldname == fld.className && b._id != fld.id && b.fieldtype == "checkbox");
+                  if(newid  && newid._id != ele1.id){
+                   $(`#${newid._id}`).prop('checked', false);
+                  }
+              });
+             }
+            }
+          });
+        }
       });
     }
- 
-    
   }
 
   public handleAnchorClick = (event: Event) => {
@@ -255,7 +238,7 @@ export class ParqFormComponent implements OnInit , OnChanges  , AfterViewChecked
                         if(valueObj)  checkedString = 'checked="checked"';
                       }
                       // htmlTemplate += " <input type='checkbox' class='"+formfieldObj.fieldname+"' (click)=checkValue($event) name='"+formfieldObj.fieldname+"' id='" + replace_str +"' "+ checkedString +">"
-                      htmlTemplate += " <input type='checkbox' value='"+ formfieldObj.displayname +"' class='"+formfieldObj._id+"'  name='"+formfieldObj.fieldname+"' id='" + formfieldObj._id +"'>"
+                      htmlTemplate += " <input type='checkbox'  class='"+formfieldObj.fieldname+"'  name='"+formfieldObj.fieldname+"' id='" + formfieldObj._id +"'>"
                     });
                   }
                 } else if (formfieldObj.fieldtype == "datepicker") {

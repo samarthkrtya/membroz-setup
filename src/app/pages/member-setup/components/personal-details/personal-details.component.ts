@@ -36,15 +36,14 @@ export class PersonalDetailsComponent implements OnInit {
   constructor(private _commonService : CommonService) { }
 
  async ngOnInit() {
-  console.log('pd =>');
-  try{
-    this.isLoading = true;
-    await this.getformFields();
-    await this.getLoadForm();
-    this.isLoading = false;
-  }catch(e){
-    this.isLoading = false;
-  }
+    try{
+      this.isLoading = true;
+      await this.getformFields();
+      await this.getLoadForm();
+      this.isLoading = false;
+    }catch(e){
+      this.isLoading = false;
+    }
   }
 
   async getformFields() {

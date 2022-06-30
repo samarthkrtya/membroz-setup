@@ -48,7 +48,6 @@ export class MemberProfileComponent implements OnInit , OnDestroy {
   constructor(private _commonService : CommonService , private fb : FormBuilder ,private cloudinary: Cloudinary ) { }
 
  async ngOnInit(){
-  console.log('ngOnInit memberpro =>');
   try {
       this.isLoading = true;
       await this.getForms();
@@ -88,9 +87,7 @@ async  getForms(){
 
     var url = "formfields/filter";
     var method = "POST";
-
-    // console.log('postData =>', postData);
-
+ 
     await this._commonService
       .commonServiceByUrlMethodDataAsync(url, method, postData)
       .then((data: any) => {

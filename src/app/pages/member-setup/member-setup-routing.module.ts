@@ -5,7 +5,6 @@ import { MemberSetupComponent } from './member-setup.component';
 
 const routes: Routes = [
   { path : '' , component : MemberSetupComponent },
-  { path : 'profile' , component : MemberProfileComponent },
 ];
 
 @NgModule({
