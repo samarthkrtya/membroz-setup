@@ -45,22 +45,21 @@ export class CreditCardDetailsComponent extends BaseComponemntComponent implemen
     protected _commonService: CommonService,
     protected fb: FormBuilder) {
       super();
-      
   }
 
   async ngOnInit() {
+  this.isLoading = true;
    await super.ngOnInit();
-
-   this.cardForm = this.fb.group({
-    'number': [, Validators.compose([OnlyPositiveNumberValidator.insertonlypositivenumber, OnlyNumberValidator.insertonlycardnumber, Validators.required])],
-    'expiry': [, Validators.required],
-    'csv': [, Validators.compose([OnlyPositiveNumberValidator.insertonlypositivenumber, OnlyNumberValidator.insertonlythreenumber, Validators.required])],
-    'holdername': [this.memberdetails?.fullname, Validators.required],
-    'terms': [false],
-    'status': ['valid']
-  });
-
-   
+   console.log('this.memberdetails =>', this.memberdetails);
+    this.cardForm = this.fb.group({
+      'number': [, Validators.compose([OnlyPositiveNumberValidator.insertonlypositivenumber, OnlyNumberValidator.insertonlycardnumber, Validators.required])],
+      'expiry': [, Validators.required],
+      'csv': [, Validators.compose([OnlyPositiveNumberValidator.insertonlypositivenumber, OnlyNumberValidator.insertonlythreenumber, Validators.required])],
+      'holdername': [this.memberdetails?.property?.fullname, Validators.required],
+      'terms': [false],
+      'status': ['valid']
+    });
+  this.isLoading = false;
   }
   
   monthSelected(params) {

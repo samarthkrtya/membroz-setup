@@ -8,7 +8,7 @@
     </svg>
 </div>
 <ng-template #templ>
-    <form [formGroup]="cardForm" autocomplete="off" (ngSubmit)="onSubmitMethod(cardForm.value,cardForm.valid)">
+    <form [formGroup]="cardForm" *ngIf="cardForm" autocomplete="off" (ngSubmit)="onSubmitMethod(cardForm.value,cardForm.valid)">
             <div class="row">
                 <div class="offset-xl-1 col-xl-10">
                     <div class="row">
