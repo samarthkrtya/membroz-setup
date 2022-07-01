@@ -1,22 +1,27 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { BaseComponemntComponent } from 'src/app/shared/base-componemnt/base-componemnt.component';
 import { CommonService } from '../../../../core/services/common/common.service';
 
 @Component({
   selector: 'app-packages',
   templateUrl: './packages.component.html', 
 })
-export class PackagesComponent implements OnInit {
+export class PackagesComponent extends BaseComponemntComponent implements OnInit {
 
-  constructor(private _commonService : CommonService) { }
+  constructor(private _commonService : CommonService) { 
+    super();
+   }
 
   @Input() memberdetails: any;
   membershipList : any[]= [];
 
   isLoading : boolean = false;
 
-  @Output() onSaveSuccess : EventEmitter<any> = new EventEmitter<any>();
+  @Output() onPrevious : EventEmitter<number> = new EventEmitter<number>();
+  @Output() onNextPackage : EventEmitter<any> = new EventEmitter<any>();
   
- async ngOnInit() { 
+  async ngOnInit() {
+    await super.ngOnInit();
     try{
       this.isLoading = true;
       await this.LoadData();
@@ -51,10 +56,19 @@ export class PackagesComponent implements OnInit {
     this.membershipList.map(a=>a.checked = a._id == event.source.id);
   }
 
+  
+  previous(){
+    console.log('previous to =>',0);
+    this.onPrevious.emit(0);
+  }
 
   onNext(){
     let packages = this.membershipList.find(a=>a.checked == true);
-    this.onSaveSuccess.emit(packages);
+    if(!packages){
+      super.showNotification("top", "right", "Please Select any Membership !!", "danger");
+      return;
+    }
+    this.onNextPackage.emit(packages);
   }
 
 }

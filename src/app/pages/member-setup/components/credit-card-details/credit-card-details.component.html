@@ -102,14 +102,24 @@
                     </div>
                 </div>
              </div> 
-            <div class="row">
-                <div class="col-sm-12 text-right">
+
+             <div class="d-flex mt-4">
+                <div class="flex-grow-1">
+                    <button
+                    (click)="previous()"
+                    class="btn btn-outline-primary"
+                    type="button"
+                    [disabled]="disableBtn">
+                    <i class="material-icons">west</i> Previous
+                </button>
+              
+                </div>
+                <div>
                     <button class="btn btn-primary justify-content-end" type="submit">
                         NEXT
                         <i class="material-icons">east</i>
                    </button>
                 </div>
             </div>
-        
     </form>
 </ng-template>

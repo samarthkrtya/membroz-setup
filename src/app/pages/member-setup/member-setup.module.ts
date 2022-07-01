@@ -19,6 +19,7 @@ import { CloudinaryModule } from '@cloudinary/angular-5.x';
 
 import { config } from '../../config';
 import { SignaturePadModule } from '../../shared/signature-pad/signature-pad.module';
+import { ReviewDetailsComponent } from './components/review-details/review-details.component';
 
 const cloudinaryLib = {
   Cloudinary: Cloudinary
@@ -33,6 +34,7 @@ const cloudinaryLib = {
     ParqFormComponent,
     CreditCardDetailsComponent,
     SafeHtmlPipe,
+    ReviewDetailsComponent,
   ],
   imports: [
     CommonModule,
