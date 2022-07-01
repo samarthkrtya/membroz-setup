@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
 import { Cloudinary } from '@cloudinary/angular-5.x';
@@ -8,8 +8,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseComponemntComponent } from '../../../../shared/base-componemnt/base-componemnt.component';
 
 declare var $: any;
-
-
 @Component({
   selector: 'app-bussiness-details-page',
   templateUrl: './bussiness-details-page.component.html',
@@ -18,7 +16,12 @@ declare var $: any;
 })
 export class BussinessDetailsPageComponent extends BaseComponemntComponent implements OnInit {
 
+  @ViewChild('targetstarttime', { static: false }) targetstarttime: ElementRef;
+  @ViewChild('targetendtime', { static: false }) targetendtime: ElementRef;
+  
   @Input('submitData') submitData: any = {};
+  @Output() bussinessPreviousData: EventEmitter<any> = new EventEmitter<any>();
+  @Output() bussinessSkipData: EventEmitter<any> = new EventEmitter<any>();
   @Output() bussinessSubmitData: EventEmitter<any> = new EventEmitter<any>();
 
 
@@ -35,6 +38,57 @@ export class BussinessDetailsPageComponent extends BaseComponemntComponent imple
   defaultlogo: any;
 
 
+  timezone_fields = {
+    fieldname: "timezone",
+    fieldtype: "lookup",
+    search: [
+      { searchfield: "status", searchvalue: "active", criteria: "eq" },
+      { searchfield: "lookup", searchvalue: "timezone", criteria: "eq" }
+    ],
+    select: [
+      { fieldname: "_id", value: 1 },
+      { fieldname: "data", value: 1 },
+    ],
+    form: {
+      formfield: "code",
+      displayvalue: "name",
+    },
+    modelValue: {},
+    dbvalue: {},
+    visibility: true
+  }
+
+  currency_fields = {
+    fieldname: "currency",
+    fieldtype: "lookup",
+    search: [
+      { searchfield: "status", searchvalue: "active", criteria: "eq" },
+      { searchfield: "lookup", searchvalue: "currency", criteria: "eq" }
+    ],
+    select: [
+      { fieldname: "_id", value: 1 },
+      { fieldname: "data", value: 1 },
+    ],
+    form: {
+      formfield: "code",
+      displayvalue: "name",
+    },
+    modelValue: {},
+    dbvalue: {},
+    visibility: true
+  }
+
+  wdoptions = [
+    { value: "Monday", checked: false },
+    { value: "Tuesday", checked: false },
+    { value: "Wednesday", checked: false },
+    { value: "Thursday", checked: false },
+    { value: "Friday", checked: false },
+    { value: "Saturday", checked: false },
+    { value: "Sunday", checked: false },
+  ];
+
+
   constructor(
     private cloudinary: Cloudinary,
     private fb: FormBuilder,
@@ -46,18 +100,17 @@ export class BussinessDetailsPageComponent extends BaseComponemntComponent imple
 
     this.form = fb.group({
       'logo': [''],
-      'fullname': ['', Validators.required],
-      'email': [],
-      'city': [],
-      'phone': [],
-      'workinghours': [],
-      'timezone': [],
-      'currency': []
+      'bussinessname': ['', Validators.required],
+      'starttime': ['', Validators.required],
+      'endtime': ['', Validators.required],
+      'timezone': ['', Validators.compose([Validators.required])],
+      'currency': ['', Validators.compose([Validators.required])],
     });
 
   }
 
   async ngOnInit() {
+    console.log("second ")
     try {
       await this.initlizationVariables();
       await this.imageConfigration();
@@ -72,7 +125,6 @@ export class BussinessDetailsPageComponent extends BaseComponemntComponent imple
   get f() { return this.form.controls; }
 
   async initlizationVariables() {
-    console.log("first tab");
     return;
   }
 
@@ -161,6 +213,8 @@ export class BussinessDetailsPageComponent extends BaseComponemntComponent imple
 
   async loadData() {
 
+    console.log("this.submitData", this.submitData);
+
     if(this.submitData && this.submitData.bussinessPostData) {
 
       if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.logo) {
@@ -168,30 +222,38 @@ export class BussinessDetailsPageComponent extends BaseComponemntComponent imple
         this.defaultlogo = this.submitData.bussinessPostData.logo;
       }
 
-      if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.fullname) {
-        this.form.get("fullname").setValue(this.submitData.bussinessPostData.fullname);
+      if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.bussinessname) {
+        this.form.get("bussinessname").setValue(this.submitData.bussinessPostData.bussinessname);
       }
 
-      if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.city) {
-        this.form.get("city").setValue(this.submitData.bussinessPostData.city);
+      if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.timezone && this.submitData.bussinessPostData.timezone.autocomplete_id) {
+        this.timezone_fields.visibility = false;
+        setTimeout(() => {
+          this.timezone_fields.dbvalue = this.submitData.bussinessPostData.timezone.autocomplete_id;
+          this.timezone_fields.visibility = true;
+        });
       }
 
-      if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.phone) {
-        this.form.get("phone").setValue(this.submitData.bussinessPostData.phone);
+      if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.currency && this.submitData.bussinessPostData.currency.autocomplete_id) {
+        this.currency_fields.visibility = false;
+        setTimeout(() => {
+          this.currency_fields.dbvalue = this.submitData.bussinessPostData.currency.autocomplete_id;
+          this.currency_fields.visibility = true;
+        });
       }
 
-      if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.workinghours) {
-        this.form.get("workinghours").setValue(this.submitData.bussinessPostData.workinghours);
+      if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.starttime) {
+        this.form.get("starttime").setValue(this.submitData.bussinessPostData.starttime);
       }
 
-      if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.timezone) {
-        this.form.get("timezone").setValue(this.submitData.bussinessPostData.timezone);
+      if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.endtime) {
+        this.form.get("endtime").setValue(this.submitData.bussinessPostData.endtime);
       }
 
-      if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.currency) {
-        this.form.get("currency").setValue(this.submitData.bussinessPostData.currency);
+      if(this.submitData.bussinessPostData && this.submitData.bussinessPostData.days && this.submitData.bussinessPostData.days.length > 0) { 
+        this.wdoptions = [];
+        this.wdoptions = [...this.submitData.bussinessPostData.days];
       }
-     
     }
     return;
   }
@@ -202,27 +264,35 @@ export class BussinessDetailsPageComponent extends BaseComponemntComponent imple
        this.showNotification("top", "right", "Fill required fields !!", "danger");
       return;
     } else {
+      value.days = [];
+      value.days = this.wdoptions;
       this.bussinessSubmitData.emit(value);
     }
   }
 
-
-  showNotification(from: any, align: any, msg: any, type: any) {
-    $.notify(
-      {
-        icon: "notifications",
-        message: msg,
-      },
-      {
-        type: type,
-        timer: 3000,
-        placement: {
-          from: from,
-          align: align,
-        },
-        z_index: 1070
-      }
-    );
+  previous() {
+    this.bussinessPreviousData.emit();
   }
+
+  skip() {
+    this.bussinessSkipData.emit();
+  }
+
+  isAllSelected(){
+    return this.wdoptions.filter(a => a.checked == true).length == 7;
+  }
+
+  setAllDays(checked: boolean){
+    this.wdoptions.map(a => a.checked = checked);
+  }
+
+  focusFunction(event: any) {
+    if (event == "starttime") {
+      this.targetstarttime.nativeElement.click();
+    } else {
+      this.targetendtime.nativeElement.click();
+    }
+  }
+
 
 }

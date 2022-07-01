@@ -85,35 +85,17 @@
                 <div class="col-md-12">
 
                     <label class="col-form-label">
-                        Full Name
+                        Bussiness Name
                         <span class="text-danger">*</span>
                     </label>
 
                     <mat-form-field class="example-full-width mat-form-field-space-remove">
-                        <input matInput formControlName="fullname">
+                        <input matInput formControlName="bussinessname">
                     </mat-form-field>
 
-                    <div *ngIf="submitted && f.fullname.errors" class="text-danger">
-                        <small *ngIf="f.fullname.errors.required" class="error-label">
-                            fullname is Required
-                        </small>
-                    </div>
-
-                </div>
-
-                <div class="col-md-12">
-
-                    <label class="col-form-label">
-                        email
-                    </label>
-
-                    <mat-form-field class="example-full-width mat-form-field-space-remove">
-                        <input matInput formControlName="email">
-                    </mat-form-field>
-
-                    <div *ngIf="submitted && f.email.errors" class="text-danger">
-                        <small *ngIf="f.email.errors.required" class="error-label">
-                            email is Required
+                    <div *ngIf="submitted && f.bussinessname.errors" class="text-danger">
+                        <small *ngIf="f.bussinessname.errors.required" class="error-label">
+                            Bussiness Name is Required
                         </small>
                     </div>
 
@@ -121,60 +103,86 @@
             </div>
 
             <div class="row">
+                <div class="col-md-6">
+                    
+                    <label class="col-form-label">
+                        {{getLang('select timezone', 'Select Timezone')}}
+                        <span class="text-danger">*</span>
+                    </label>
 
+                    <dynamic-autocomplete 
+                        *ngIf="timezone_fields.visibility"
+                        [formControlName]="timezone_fields.fieldname"
+                        [setting]="timezone_fields" 
+                        [dbvalue]="timezone_fields.dbvalue">
+                    </dynamic-autocomplete>
+
+                    <div [hidden]="form.get('timezone').valid || (form.get('timezone').pristine && !submitted)"
+                        class="text-danger">
+                        <small *ngIf="form.get('timezone').hasError('required')"
+                            class="error-label">
+                            {{getLang('timezonerequired', 'Timezone required')}}
+                        </small>
+                    </div>
+                </div>
                 <div class="col-md-6">
 
                     <label class="col-form-label">
-                        City
+                        {{getLang('currency', 'Currency')}}
+                        <span class="text-danger">*</span>
                     </label>
 
-                    <mat-form-field class="example-full-width mat-form-field-space-remove">
-                        <input matInput formControlName="city">
-                    </mat-form-field>
-                
-                    <div *ngIf="submitted && f.city.errors" class="text-danger">
-                        <small *ngIf="f.city.errors.required" class="error-label">
-                            city is Required
-                        </small>
+                    <dynamic-autocomplete 
+                        *ngIf="currency_fields.visibility"
+                        [formControlName]="currency_fields.fieldname"
+                        [setting]="currency_fields" 
+                        [dbvalue]="currency_fields.dbvalue">
+                    </dynamic-autocomplete>
+
+                    <div [hidden]="form.get('currency').valid || (form.get('currency').pristine && !submitted)"
+                        class="text-danger">
+                        <small *ngIf="form.get('currency').hasError('required')"
+                            class="error-label">
+                            {{getLang('currencyrequired', 'Currency required')}}
+                        </small> 
                     </div>
-
                 </div>
+            </div>
 
-                <div class="col-md-6">
-                    <label class="col-form-label">
-                        phone
-                    </label>
-
-                    <mat-form-field class="example-full-width mat-form-field-space-remove">
-                        <input matInput formControlName="phone">
-                    </mat-form-field>
-
-                    <div *ngIf="submitted && f.phone.errors" class="text-danger">
-                        <small *ngIf="f.phone.errors.required" class="error-label">
-                            phone is Required
-                        </small>
-                    </div>
-
-                </div>
-
-            </div> 
-
+            
             <div class="row">
 
-                <div class="col-md-12">
+                <div class="col-md-6">
 
                     <label class="col-form-label">
-                        Working Hours
+                        {{getLang('workinghours', 'Working Hours')}}
                     </label>
 
-                    <mat-form-field class="example-full-width mat-form-field-space-remove">
-                        <input matInput formControlName="workinghours">
-                    </mat-form-field>
-                
-                    <div *ngIf="submitted && f.workinghours.errors" class="text-danger">
-                        <small *ngIf="f.workinghours.errors.required" class="error-label">
-                            workinghours is Required
-                        </small>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <input 
+                                    matInput 
+                                    type="time" 
+                                    placeholder="{{getLang('starttime','Start Time')}}" 
+                                    formControlName="starttime">
+                                    <mat-hint>{{getLang('fromhh/mm', 'From HH / MM')}}</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <input 
+                                    matInput 
+                                    type="time" 
+                                    #targetendtime 
+                                    (focus)="focusFunction('endtime')" 
+                                    placeholder="{{getLang('endtime','End Time')}}" 
+                                    formControlName="endtime">
+                                <mat-hint>{{getLang('tohh/mm', 'To HH / MM')}}</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        
                     </div>
 
                 </div>
@@ -182,38 +190,36 @@
                 <div class="col-md-6">
 
                     <label class="col-form-label">
-                        Timezone
+                        {{getLang('working days', 'Working Days')}}
                     </label>
 
-                    <mat-form-field class="example-full-width mat-form-field-space-remove">
-                        <input matInput formControlName="timezone">
-                    </mat-form-field>
-                
-                    <div *ngIf="submitted && f.timezone.errors" class="text-danger">
-                        <small *ngIf="f.timezone.errors.required" class="error-label">
-                            timezone is Required
-                        </small>
+                    <div class="mt-2 row">
+                        <div class="col-12">
+                            <section class="example-section row">
+                                <mat-checkbox 
+                                    class="example-margin m-0 col-12"
+                                    (change)="$event ? setAllDays($event.checked) : null"
+                                    [checked]="isAllSelected()"
+                                    [indeterminate]="!isAllSelected()">
+                                    <span class="font-bold">{{getLang('selectall', 'Select All')}}</span>
+                                </mat-checkbox>
+                            </section>
+
+                            <section class="example-section row">
+                                <mat-checkbox 
+                                    class="example-margin m-0 col-md-4 col-6"
+                                    [(ngModel)]="day.checked" 
+                                    *ngFor="let day of wdoptions"
+                                    [ngModelOptions]="{standalone: true}">
+                                    {{day?.value}}
+                                </mat-checkbox>
+                            </section>
+                        </div>
                     </div>
 
                 </div>
 
-                <div class="col-md-6">
-
-                    <label class="col-form-label">
-                        currency
-                    </label>
-
-                    <mat-form-field class="example-full-width mat-form-field-space-remove">
-                        <input matInput formControlName="currency">
-                    </mat-form-field>
                 
-                    <div *ngIf="submitted && f.currency.errors" class="text-danger">
-                        <small *ngIf="f.currency.errors.required" class="error-label">
-                            currency is Required
-                        </small>
-                    </div>
-
-                </div>
             </div>
 
             
@@ -225,12 +231,14 @@
     <div class="d-flex mt-4">
 
         <div class="flex-grow-1">
-            <!-- <button 
+            
+            <button 
+                (click)="previous()"
                 class="btn btn-outline-primary"
                 type="button"
                 [disabled]="disableBtn">
-                <i class="material-icons">west</i> {{getLang('previous', 'Previous')}} 
-            </button> -->
+                <i class="material-icons">west</i> Previous
+            </button>
         </div>
 
         <div>

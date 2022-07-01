@@ -1,1 +1,243 @@
-<p>bussiness-review-page works!</p>
+<div id="setup" class="d-block">
+    
+    <div class="text-center mb-3">
+        <h3 class="mb-1">Review your Information</h3>   
+        <div class="font-16">Review your Society details</div>
+    </div>
+
+    <div class="row  mb-3">
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    
+                    <h5 class="card-title">Contact Details</h5>
+                    
+                    <div class="table-responsive border-outer-secondary">
+            
+                        <table class="table mat-elevation-z8 w-100 table-membroz-plain">
+                            <thead>
+                                <tr>
+                                    <th>{{getLang('contactname', 'Contact Name')}}</th>
+                                    <th>{{getLang('email', 'email')}}</th>
+                                    <th>{{getLang('phone', 'phone')}}</th>
+                                    <th>{{getLang('country', 'country')}}</th>
+                                    <th>{{getLang('city', 'city')}}</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> {{this.submitData?.contactPostData?.fullname}} </td>
+                                    <td> {{this.submitData?.contactPostData?.email}} </td>
+                                    <td> {{this.submitData?.contactPostData?.phone?.internationalNumber}} </td>
+                                    <td> {{this.submitData?.contactPostData?.country?.autocomplete_displayname}} </td>
+                                    <td> {{this.submitData?.contactPostData?.city}} </td>
+                                </tr>
+                                
+                            </tbody>
+                
+                            
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    
+                    <h5 class="card-title">Bussiness Details</h5>
+                    
+                    <div class="table-responsive border-outer-secondary">
+            
+                        <table class="table mat-elevation-z8 w-100 table-membroz-plain">
+                            <thead>
+                                <tr>
+                                    <th>{{getLang('bussinessname', 'Bussiness Name')}}</th>
+                                    <th>{{getLang('workinghours', 'Working Hours')}}</th>
+                                    <th>{{getLang('timezone', 'Timezone')}}</th>
+                                    <th>{{getLang('currency', 'Currency')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td> {{this.submitData?.bussinessPostData?.bussinessname}} </td>
+                                    <td> {{this.submitData?.bussinessPostData?.starttime}} - {{this.submitData?.bussinessPostData?.endtime}}</td>
+                                    <td> {{this.submitData?.bussinessPostData?.timezone?.autocomplete_displayname}} </td>
+                                    <td> {{this.submitData?.bussinessPostData?.currency?.autocomplete_displayname}} </td>
+                                </tr>
+                                
+                            </tbody>
+                
+                            
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    
+                    <h5 class="card-title">Bussiness Type</h5>
+                    
+                    <div class="table-responsive border-outer-secondary">
+            
+                        <table class="table mat-elevation-z8 w-100 table-membroz-plain">
+                            <thead>
+                                <tr>
+                                    <th>{{getLang('bussinesstype', 'Bussiness Type')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td> {{this.submitData?.solutiontype}} </td>
+                                </tr>
+                                
+                            </tbody>
+                
+                            
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Servies</h5>
+
+                    <ul class="list-group list-group-flush">
+                        <li 
+                            class="list-group-item" 
+                            *ngFor="let item of this.submitData.productServiceFacilityPostData">
+                            {{item.item}}
+                        </li>
+                    </ul>
+
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Membership Details</h5>
+                    
+                    <div class="table-responsive border-outer-secondary">
+            
+                        <table class="table mat-elevation-z8 w-100 table-membroz-plain">
+                            <thead>
+                                <tr>
+                                    <th>{{getLang('membership', 'Membership')}}</th>
+                                    <th>{{getLang('duration', 'Duration')}}</th>
+                                    <th>{{getLang('charge', 'Charge')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of this.submitData.membershipPostData.items">
+                                    <td> {{item.membershipname}} </td>
+                                    <td> {{item.duration}} </td>
+                                    <td> {{item.charge}} </td>
+                                </tr>
+                                
+                            </tbody>
+                
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Staff</h5>
+                    
+                    <div class="table-responsive border-outer-secondary">
+            
+                        <table class="table mat-elevation-z8 w-100 table-membroz-plain">
+                            <thead>
+                                <tr>
+                                    <th>{{getLang('Designation', 'designation')}}</th>
+                                    <th>{{getLang('Name', 'Name')}}</th>
+                                    <th>{{getLang('email', 'Email')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of this.submitData.staffsPostData.items">
+                                    <td> {{item.designationname}} </td>
+                                    <td> {{item.name}} </td>
+                                    <td> {{item.email}} </td>
+                                </tr>
+                                
+                            </tbody>
+                
+                            
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="d-flex mt-4">
+
+        <div class="flex-grow-1">
+
+            <button 
+                (click)="previous()"
+                class="btn btn-outline-primary"
+                type="button"
+                [disabled]="disableBtn">
+                <i class="material-icons">west</i> {{getLang('previous', 'Previous')}} 
+            </button>
+
+        </div>
+
+        <div>
+
+            <button 
+                (click)="finished()"
+                id="submit"
+                type="submit" 
+                [disabled]="disableBtn"
+                class="btn btn-primary justify-content-end">
+                    {{getLang('reviewandfinish', 'Review & Finished')}} <i class="material-icons">done</i>
+            </button>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="d-none" id="done">
+
+    <div class="text-center mb-3">
+        <h3 class="mb-1 ts-text-green">Finished!</h3>   
+        <div class="font-16">
+            Now you have done the setup,  
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="mb-3">                                                                        
+            <img src="../assets/img/tick-icon-54.svg"  class="img-fluid"  alt="">
+        </div>
+    </div>
+
+
+</div>

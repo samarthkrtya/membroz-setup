@@ -28,12 +28,15 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
               "node_modules/angular-calendar/scss/angular-calendar.scss",
               "node_modules/sweetalert2/src/sweetalert2.scss",
               "src/assets/css/demo.css",
               "node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css",
-              "src/assets/scss/material-dashboard.scss"
+              "src/assets/scss/material-dashboard.scss",
+              "./node_modules/intl-tel-input/build/css/intlTelInput.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
@@ -87,14 +90,13 @@
               "buildOptimizer": true
             },
             "development": {
-             "buildOptimizer": false,
-             "optimization": false,
+              "buildOptimizer": false,
+              "optimization": false,
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
-            
-           }
+            }
           }
         },
         "serve": {
@@ -131,7 +133,8 @@
               "node_modules/sweetalert2/src/sweetalert2.scss",
               "node_modules/@fullcalendar/common/main.min.css",
               "src/assets/css/demo.css",
-              "src/assets/scss/material-dashboard.scss"
+              "src/assets/scss/material-dashboard.scss",
+              "./node_modules/intl-tel-input/build/css/intlTelInput.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",

@@ -112,7 +112,7 @@ export class ProductServiceFacilityPageComponent extends BaseComponemntComponent
     
     if(this.submitData && this.submitData.productServiceFacilityPostData && this.submitData.productServiceFacilityPostData.length > 0) {
       for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
-        var obj = this.submitData.productServiceFacilityPostData.find(p=>p == this.treeControl.dataNodes[i]._id);
+        var obj = this.submitData.productServiceFacilityPostData.find(p=>p._id == this.treeControl.dataNodes[i]._id);
         if(obj && this.treeControl.dataNodes[i].level == 1) {
           this.todoItemSelectionToggle(this.treeControl.dataNodes[i]);
         }
@@ -270,8 +270,15 @@ export class ProductServiceFacilityPageComponent extends BaseComponemntComponent
   }
 
   next() {
-    var ids = this.checklistSelection.selected.filter(opt => opt._id !== undefined).map(choice => (choice._id));
-    this.productServiceFacilitySubmitData.emit(ids);
+    var services = [];
+    if(this.checklistSelection.selected && this.checklistSelection.selected.length > 0 ) {
+      this.checklistSelection.selected.forEach(element => {
+        if(element.level !== 0)  {
+          services.push(element);
+        }
+      });
+    }
+    this.productServiceFacilitySubmitData.emit(services);
   }
 
 

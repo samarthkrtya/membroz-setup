@@ -6,6 +6,11 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CommonService } from '../../../../core/services/common/common.service';
 
+import {
+  BasicValidators, ValidUrlValidator, OnlyNumberValidator, ValidMobileNumberValidator, OnlyNumberOrDecimalValidator,
+  ValidPercValidator, equalValidator, matchingPasswords
+} from '../../../../shared/components/basicValidators';
+
 declare var $: any;
 @Component({
   selector: 'app-bussiness-staffs-page',
@@ -17,8 +22,8 @@ export class BussinessStaffsPageComponent extends BaseComponemntComponent implem
 
   @Input('designationLists') designationLists: any = [];
   @Input('submitData') submitData: any = {};
-  @Output() staffSubmitData: EventEmitter<any> = new EventEmitter<any>();
-  @Output() staffPreviousData: EventEmitter<any> = new EventEmitter<any>();
+  @Output() staffsSubmitData: EventEmitter<any> = new EventEmitter<any>();
+  @Output() staffsPreviousData: EventEmitter<any> = new EventEmitter<any>();
 
   disableBtn = false;
   form: FormGroup;
@@ -62,6 +67,7 @@ export class BussinessStaffsPageComponent extends BaseComponemntComponent implem
     return this.fb.group({
       'designation':[item.designation, Validators.required],
       'name': [item.name, Validators.required],
+      'email': [item.name, Validators.compose([Validators.required, BasicValidators.email])],
     });
   }
   
@@ -82,7 +88,7 @@ export class BussinessStaffsPageComponent extends BaseComponemntComponent implem
       return;
     } else {
       
-      this.staffSubmitData.emit(value);
+      this.staffsSubmitData.emit(value);
     }
   }
 
@@ -96,6 +102,7 @@ export class BussinessStaffsPageComponent extends BaseComponemntComponent implem
     let items = {};
     items["designation"] = designation;
     items["name"] = "";
+    items["email"] = "";
     this.addItem(items);
   }
 
@@ -105,7 +112,7 @@ export class BussinessStaffsPageComponent extends BaseComponemntComponent implem
   }
 
   previous() {
-    this.staffPreviousData.emit();
+    this.staffsPreviousData.emit();
   }
 
 }
