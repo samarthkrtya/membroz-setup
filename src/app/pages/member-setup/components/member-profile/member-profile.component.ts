@@ -8,22 +8,23 @@ import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-fi
 import { Cloudinary } from '@cloudinary/angular-5.x';
 import { BasicValidators, ValidMobileNumberValidator } from 'src/app/core/helper/basicValidators';
 import { Subject } from 'rxjs';
+import { BaseComponemntComponent } from 'src/app/shared/base-componemnt/base-componemnt.component';
 
 declare var $ : any;
 
 @Component({
   selector: 'app-member-profile',
   templateUrl: './member-profile.component.html',
-  styles :[
+  styles : [
     `.mat-radio-button~.mat-radio-button {
-      margin-left: 16px;
-  }`
+        margin-left: 16px;
+    }`
   ]
 })
-export class MemberProfileComponent implements OnInit , OnDestroy {
+
+export class MemberProfileComponent extends BaseComponemntComponent  implements OnInit , OnDestroy {
 
   allFields : any[] = [];
-
   dynamicForm : FormGroup;
 
   uploader: FileUploader;
@@ -43,13 +44,17 @@ export class MemberProfileComponent implements OnInit , OnDestroy {
   disableBtn : boolean = false;
   isLoading: boolean = false;
  
-  @Output() onSaveSuccess : EventEmitter<any> = new EventEmitter<any>();
+  
+  @Output() onNext : EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private _commonService : CommonService , private fb : FormBuilder ,private cloudinary: Cloudinary ) { }
+  constructor(private _commonService : CommonService , private fb : FormBuilder ,private cloudinary: Cloudinary ) {
+    super();
+   }
 
  async ngOnInit(){
   try {
       this.isLoading = true;
+      super.ngOnInit();
       await this.getForms();
       await this.LoadData();
       setTimeout(async () => {
@@ -142,11 +147,12 @@ async  getForms(){
         return new FormControl(null, Validators.compose([BasicValidators.email]));
       }
     } else if (element.fieldtype == 'number') {
-
       if (element.required) {
-        if(element.min && element.max){
+        if(element.min && element.max) {
           return new FormControl(null, Validators.compose([Validators.required, Validators.min(element.min), Validators.max(element.max)]));
-        } else {
+        }else if(element.maxlength) {
+          return new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(element.max)]));
+        }  else {
           return new FormControl(null, Validators.compose([Validators.required]));
         }
       } else {
@@ -166,9 +172,7 @@ async  getForms(){
   }
 
   async imageConfigration() {
-    console.log('imageConfigration  allFields=>', this.allFields);
     this.allFields.forEach((element,i) => {
-
         if (element.fieldtype == 'image' || element.fieldtype == 'multi_image' || element.fieldtype == "attachment" || element.fieldtype == "gallery") {
           // var auth_cloud_name = this._authService && this._authService.auth_cloudinary && this._authService.auth_cloudinary.cloud_name ? this._authService.auth_cloudinary.cloud_name : this.cloudinary.config().cloud_name;
           // var auth_upload_preset = this._authService && this._authService.auth_cloudinary && this._authService.auth_cloudinary.upload_preset ? this._authService.auth_cloudinary.upload_preset : this.cloudinary.config().upload_preset;
@@ -309,14 +313,16 @@ async  getForms(){
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
-  onDynamicFormSubmit(value : any , valid: boolean){
-    try{
-
+  previous(){
     
-      console.log(valid, value);
+  }
+
+  onDynamicSubmitNext(value : any , valid: boolean){
+    // console.log('this.dynamicForm =>', this.dynamicForm);
+    try{
       this.dynamicSubmitted = true;
       if (!valid) {
-        this.showNotification("top", "right", 'Please enter required fields !!', "danger");
+        super.showNotification("top", "right", 'Please enter required fields !!', "danger");
         return;
       } else {
         this.disableBtn = true;
@@ -346,8 +352,7 @@ async  getForms(){
             }
           }
   
-          const url = this.formObj.addurl["url"]+'/';
-          const method = this.formObj.addurl["method"];
+          
   
           for (let key in this._needToSave["property"]) {
               if (Object.prototype.toString.call(this._needToSave["property"][key]) === "[object Array]") {
@@ -376,11 +381,9 @@ async  getForms(){
               }
             });
           }
-          this.onSaveSuccess.emit(this._needToSave);
-          // this.addRecord(url, method);
+          this.onNext.emit(this._needToSave);
           this.disableBtn = false;
         }, 1000);
-        //console.log("this.dynamicForm.value", this.dynamicForm.value);
       }
     }catch(e){
       console.error('e =>', e);
@@ -388,38 +391,23 @@ async  getForms(){
     }
   }
 
-  addRecord(url: string, method: string) {
+  addRecord() {
+    const url = this.formObj.addurl["url"]+'/';
+    const method = this.formObj.addurl["method"];
+
     this._commonService
       .commonServiceByUrlMethodData(url, method, this._needToSave)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) =>{
-        this.showNotification("top", "right",  this.formObj?.dispalyformname+' added successfully !!', "success");
-        this.onSaveSuccess.emit(data);
+        super.showNotification("top", "right",  this.formObj?.dispalyformname+' added successfully !!', "success");
+        this.onNext.emit(data);
       },(err)=>{
         if (err.status == 500) {
-          this.showNotification("top", "right", err.error.message, "danger");
+          super.showNotification("top", "right", err.error.message, "danger");
         }
       });
   }
-
-
-  showNotification(from: any, align: any, msg: any, type: any) {
-    $.notify(
-      {
-        icon: "notifications",
-        message: msg,
-      },
-      {
-        type: type,
-        timer: 3000,
-        placement: {
-          from: from,
-          align: align,
-        },
-        z_index: 1070
-      }
-    );
-  }
+ 
 
   ngOnDestroy() {
     this.destroy$.next(true);

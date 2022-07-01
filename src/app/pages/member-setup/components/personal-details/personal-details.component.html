@@ -28,18 +28,23 @@
                     </mat-checkbox>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <button  class="btn btn-primary justify-content-end" type="button" (click)="onNext()" [disabled]="!checked">
-                            Next
-                            <i class="material-icons">east</i>
+                     <button 
+                        (click)="previous()"
+                        class="btn btn-outline-primary ml-2"
+                        type="button"
+                        [disabled]="disableBtn">
+                        <i class="material-icons">west</i> Previous
+                    </button>
+                    <button class="btn btn-primary justify-content-end" type="button" (click)="onNextPDS()" [disabled]="!checked">
+                        Next
+                        <i class="material-icons">east</i>
                     </button>
                 </div>
             </div>
         </div>
     </div>
-</ng-template> 
-
- 
-
+</ng-template>
+  
 
 <button id="myModalFormfieldPopup"  type="button" class="d-none" data-toggle="modal"   data-keyboard="false" data-target="#myModalFormfield"></button>
 <div id="myModalFormfield" class="modal fade" role="dialog">

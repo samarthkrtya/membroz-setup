@@ -10,22 +10,25 @@
                 </div>
             <div class="card">
                 <div class="p-3">
-                    <mat-tab-group [(selectedIndex)]="index">                        
-                        <mat-tab [label]="'Member'" > 
-                            <app-member-profile (onSaveSuccess)="onSaveSuccessMember($event)" *ngIf="index == 0"></app-member-profile>
+                    <mat-tab-group [(selectedIndex)]="index">
+                        <mat-tab [label]="'Member'"> 
+                            <app-member-profile (onNext)="onNextSuccessMember($event)" *ngIf="this.visitTabs.includes(0)"></app-member-profile>
                         </mat-tab>
-                          <mat-tab [label]="'Package'" >
-                            <app-packages [memberdetails]="memberdetails" (onSaveSuccess2)="onSaveSuccessPackage($event)"  *ngIf="index == 1"></app-packages>
+                        <mat-tab [label]="'Package'" [disabled]="!this.visitTabs.includes(1)">
+                            <app-packages (onPrevious)="onPreviousIndex($event)" (onNextPackage)="onNextPackage($event)"  *ngIf="this.visitTabs.includes(1)"></app-packages>
                         </mat-tab>
-                        <mat-tab [label]="'Personal Details'">
-                            <app-personal-details [packagedetails]="packagedetails" (onSaveSuccess3)="onSaveSuccessPd($event)"   *ngIf="index == 2"></app-personal-details>
+                        <mat-tab [label]="'Personal Details'" [disabled]="!this.visitTabs.includes(2)">
+                            <app-personal-details [memberdetails]="this.memberdetails" (onPrevious)="onPreviousIndex($event)"  (onNextPD)="onNextPd($event)" *ngIf="this.visitTabs.includes(2)"></app-personal-details>
                         </mat-tab>
-                        <mat-tab [label]="'PARQ Form'">
-                            <app-parq-form (onSaveSuccess4)="onSaveSuccessPQ($event)"  *ngIf="index == 3"></app-parq-form>
+                        <mat-tab [label]="'PARQ Form'" [disabled]="!this.visitTabs.includes(3)">
+                            <app-parq-form (onPrevious)="onPreviousIndex($event)" (onNextPQF)="onNextPF($event)"  *ngIf="this.visitTabs.includes(3)"></app-parq-form>
                         </mat-tab>
-                        <mat-tab [label]="'Card Details'">
-                            <app-credit-card-details (onSaveSuccess4)="onSaveSuccessPQ($event)"  *ngIf="index == 4"></app-credit-card-details> 
+                        <mat-tab [label]="'Card Details'" [disabled]="!this.visitTabs.includes(4)">
+                            <app-credit-card-details [memberdetails]="this.memberdetails" (onPrevious)="onPreviousIndex($event)" (onNextCard)="onNextCard($event)"  *ngIf="this.visitTabs.includes(4)"></app-credit-card-details> 
                         </mat-tab> 
+                        <mat-tab [label]="'Review'" [disabled]="!this.visitTabs.includes(5)">
+                            <app-review-details [memberdetails]="this.memberdetails" [carddetails]="this.carddetails"  (onPrevious)="onPreviousIndex($event)" (onNextCard)="onSaveSuccessPQ($event)"  *ngIf="this.visitTabs.includes(5)"></app-review-details> 
+                        </mat-tab>
                     </mat-tab-group>  
                 </div>
             </div>

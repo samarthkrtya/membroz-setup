@@ -15,7 +15,7 @@
                     <div class="row membroz-row" *ngIf="membershipList.length > 0">
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6 membroz-col d-flex"
                             *ngFor="let membership of membershipList">
-                            <div class="card card-border" style="height: 150px;">
+                            <div class="card card-border" style="height: 150px;" [ngClass]="membership.checked ?  'active' : ''" >
                                 <div class="card-body card-body-10">
                                     <div class="d-flex justify-content-end mb-1">
                                         <section class="example-section">
@@ -40,13 +40,24 @@
             </div>
         </div>
     </div> 
-    <div class="row">
-        <div class="col-sm-12 text-right">
+
+    <div class="d-flex mt-4">
+        <div class="flex-grow-1">
+            <button 
+                (click)="previous()"
+                class="btn btn-outline-primary"
+                type="button"
+                [disabled]="disableBtn">
+                <i class="material-icons">west</i> Previous
+            </button>
+        </div>
+        <div>
             <button class="btn btn-primary justify-content-end" type="button" (click)="onNext()">
                 NEXT
                 <i class="material-icons">east</i>
            </button>
         </div>
     </div>
+ 
 
 </ng-template>
