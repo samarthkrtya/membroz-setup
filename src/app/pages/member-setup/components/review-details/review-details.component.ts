@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BaseComponemntComponent } from 'src/app/shared/base-componemnt/base-componemnt.component';
 
 @Component({
@@ -9,6 +9,9 @@ export class ReviewDetailsComponent extends BaseComponemntComponent implements O
 
   @Input() carddetails : any;
   @Input() memberdetails : any;
+  @Input() packagedetails : any;
+
+  @Output() submit : EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
     super();
@@ -16,6 +19,14 @@ export class ReviewDetailsComponent extends BaseComponemntComponent implements O
 
   async ngOnInit(){
     await super.ngOnInit();
+    console.log('memberdetails =>', this.memberdetails);
+    console.log('carddetails =>', this.carddetails);
+    console.log('packagedetails =>', this.packagedetails);
   }
 
+
+
+  onSubmit(){
+    this.submit.emit();
+  }
 }

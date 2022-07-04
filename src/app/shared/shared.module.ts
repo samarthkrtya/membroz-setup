@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedRoutingModule } from './shared-routing.module';
 
 import { AppMaterialModule } from '../app-material/app-material.module';
+import { MyCurrencyPipe } from './components/currency.pipe';
 
 @NgModule({
   imports: [
@@ -20,11 +21,12 @@ import { AppMaterialModule } from '../app-material/app-material.module';
     
   ],
   declarations: [
-    
+    MyCurrencyPipe,
   ],
   exports : [
     AppMaterialModule,
     ReactiveFormsModule,
+    MyCurrencyPipe,
   ],
 })
 export class SharedModule {
