@@ -60,9 +60,7 @@ export class BussinessTypePageComponent extends BaseComponemntComponent implemen
 
 
   async initializeVariables() {
-
-    console.log("second-tab");
-
+    
     this.items = [];
     this.items.push({ name: "club", title: "Club, Resort & Hotel", checked: false });
     this.items.push({ name: "tour", title: "Tour, Travel & Timeshare", checked: false });

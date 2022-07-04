@@ -3,118 +3,146 @@
     <div class="font-16">Add your building unit size & maintenance details</div>
 </div>
 
-<div class="row mb-3">
-    <div class="col-md-8 ml-auto mr-auto d-flex justify-content-center">
-        <div class="inline-block text-right">
+<form 
+    [formGroup]="form" 
+    (ngSubmit)="onSubmit(form.value, form.valid)" 
+    novalidate 
+    class="form-horizontal mb-0">
+
+    <div class="row mb-3">
+        <div class="col-md-8 ml-auto mr-auto d-flex justify-content-center">
+            <div class="inline-block text-right">
+                <button 
+                    type="button"
+                    (click)="addNewItem()"
+                    class="btn btn-primary mrtb0">
+                    Add Membership <b class="caret"></b>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div 
+        formArrayName="items"
+        *ngFor="let item of form.get('items')['controls']; let i = index;">
+
+        <div class="row" [formGroupName]="i">
+            <div class="col-lg-10 col-md-12 ml-auto mr-auto">                                                    
+                <div class="row align-items-center justify-content-center">
+
+                    <div class="col-3">
+
+                        <label class="col-form-label">
+                            Membership Name
+                        </label>
+
+                        <mat-form-field class="example-full-width mat-form-field-space-remove">
+                            <input matInput formControlName="membershipname">
+                        </mat-form-field> 
+
+                        <div
+                            [hidden]="this.form.get('items').at(i).get('membershipname').valid || (this.form.get('items').at(i).get('membershipname').pristine && !submitted)"
+                            class="text-danger">
+                            <small *ngIf="this.form.get('items').at(i).get('membershipname').hasError('required')" class="error-label">
+                                {{getLang('membershipnameisrequired', 'membershipname is Required')}}
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <label class="col-form-label">
+                            Duration ( In Month )                                                          
+                        </label>
+
+                        <mat-form-field class="example-full-width mat-form-field-space-remove">
+                            <input matInput type="number"  maxlength="6" formControlName="duration">
+                        </mat-form-field> 
+
+                        <div
+                            [hidden]="this.form.get('items').at(i).get('duration').valid || (this.form.get('items').at(i).get('duration').pristine && !submitted)"
+                            class="text-danger">
+                            <small *ngIf="this.form.get('items').at(i).get('duration').hasError('required')" class="error-label">
+                                {{getLang('durationisrequired', 'duration is Required')}}
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <div class="col-3">
+
+                        <label class="col-form-label">
+                            Charge
+                        </label>
+
+                        <mat-form-field class="example-full-width mat-form-field-space-remove">
+                            <input matInput type="number" maxlength="6" formControlName="charge">
+                        </mat-form-field>
+
+                        <div
+                            [hidden]="this.form.get('items').at(i).get('charge').valid || (this.form.get('items').at(i).get('charge').pristine && !submitted)"
+                            class="text-danger">
+                            <small *ngIf="this.form.get('items').at(i).get('charge').hasError('required')" class="error-label">
+                                {{getLang('chargeisrequired', 'charge is Required')}}
+                            </small>
+                        </div>
+                    </div>
+
+
+                    <div class="col-2">
+                        
+                        <button
+                            (click)="removeItem(i)"
+                            type="button" 
+                            rel="tooltip" 
+                            data-placement="left" 
+                            data-toggle="tooltip"
+                            title="Clone" 
+                            data-original-title="Clone"
+                            class="btn btn-link btn-primary btn-just-icon edit">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="d-flex mt-4">
+
+        <div class="flex-grow-1">
             <button 
-                class="btn btn-primary mrtb0">
-                Add Unit Type <b class="caret"></b>
+                (click)="previous()"
+                class="btn btn-outline-primary"
+                type="button"
+                [disabled]="disableBtn">
+                <i class="material-icons">west</i> 
+                {{getLang('previous', 'Previous')}} 
             </button>
         </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-lg-10 col-md-12 ml-auto mr-auto">                                                    
-        <div class="row align-items-center justify-content-center">
+        <div>
 
-            <div class="col-3">
-                <label class="col-form-label">
-                    Unit Type 
-                </label>
-                <mat-form-field class="example-full-width mat-form-field-space-remove">
-                    <input matInput>
-                </mat-form-field> 
-            </div>
+            <button 
+                (click)="skip()"
+                id="skip"
+                type="button" 
+                style="margin-right: 20px;"
+                class="btn btn-outline-primary"
+                [disabled]="disableBtn">
+                {{getLang('skip', 'Skip')}}
+                <i class="material-icons">skip_next</i>
+            </button>
 
-            <div class="col-3">
-                <label class="col-form-label">
-                    Size (Sq.ft)                                                             
-                </label>
-
-                <mat-form-field class="example-full-width mat-form-field-space-remove">
-                    <input matInput type="number" maxlength="6">
-                </mat-form-field> 
-            </div>
-
-            <div class="col-3">
-
-                <label class="col-form-label">
-                    Maintenance Charge
-                </label>
-
-                <mat-form-field class="example-full-width mat-form-field-space-remove">
-                    <input matInput type="number" maxlength="6">
-                </mat-form-field>
-            </div>
-
-
-            <div class="col-2">
-                
-                <button
-                    type="button" 
-                    rel="tooltip" 
-                    data-placement="left" 
-                    data-toggle="tooltip"
-                    title="Clone" 
-                    data-original-title="Clone"
-                    class="btn btn-link btn-primary btn-just-icon edit">
-                    <i class="material-icons">content_copy</i>
-                </button>
-
-                <button
-                    type="button" 
-                    rel="tooltip" 
-                    data-placement="left" 
-                    data-toggle="tooltip"
-                    title="Clone" 
-                    data-original-title="Clone"
-                    class="btn btn-link btn-primary btn-just-icon edit">
-                    <i class="material-icons">delete</i>
-                </button>
-
-            </div>
-            
-            
-            
+            <button 
+                id="submit"
+                type="submit"
+                class="btn btn-primary justify-content-end">
+                {{getLang('next', 'Next')}} 
+                <i class="material-icons">east</i>
+            </button>
 
         </div>
-            
-        
-    </div>
-</div>
-
-<div class="d-flex mt-4">
-
-    <div class="flex-grow-1">
-        <button 
-            (click)="previous()"
-            class="btn btn-outline-primary"
-            type="button">
-            <i class="material-icons">west</i> 
-            Previous
-        </button>
     </div>
 
-    <div>
-
-        <button 
-            (click)="skip()"
-            id="skip"
-            type="button" 
-            style="margin-right: 20px;"
-            class="btn btn-outline-primary">
-            Skip
-            <i class="material-icons">skip_next</i>
-        </button>
-
-        <button 
-            (click)="next()"
-            type="button" 
-            class="btn btn-primary justify-content-end">
-            Next
-            <i class="material-icons">east</i>
-        </button>
-
-    </div>
-</div>
+</form>

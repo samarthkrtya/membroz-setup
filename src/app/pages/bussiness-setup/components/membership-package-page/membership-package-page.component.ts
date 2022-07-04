@@ -36,11 +36,16 @@ export class MembershipPackagePageComponent extends BaseComponemntComponent impl
 
   async ngOnInit() {
     try {
+
       await super.ngOnInit()
       await this.initializeVariables();
-      if(this.submitData && this.submitData.unitSizePostData && this.submitData.unitSizePostData.items && this.submitData.unitSizePostData.items.length > 0 ) {
+
+      if(this.submitData && this.submitData.membershipPostData && this.submitData.membershipPostData.items && this.submitData.membershipPostData.items.length > 0 ) {
         await this.loadData();
+      } else {
+        this.addNewItem();
       }
+      
     } catch(error) {
       console.error("error", error);
     } finally {
@@ -55,9 +60,9 @@ export class MembershipPackagePageComponent extends BaseComponemntComponent impl
 
   createItem(item: any): FormGroup {
     return this.fb.group({
-      'unittype': [item.unittype],
-      'size': [item.size, Validators.required],
-      'charge': [item.charge],
+      'membershipname': [item.membershipname, Validators.required],
+      'duration': [item.duration, Validators.required],
+      'charge': [item.charge, Validators.required],
     });
   }
   
@@ -77,6 +82,7 @@ export class MembershipPackagePageComponent extends BaseComponemntComponent impl
       this.showNotification("top", "right", "Fill required fields !!", "danger");
       return;
     } else {
+      console.log("value", value);
       this.membershipSubmitData.emit(value);
     }
   }
@@ -89,25 +95,17 @@ export class MembershipPackagePageComponent extends BaseComponemntComponent impl
     this.membershipSkipData.emit();
   }
 
-  next() {
-    this.membershipSubmitData.emit();
-  }
-
-  async addCloneItem(index: any) {
-    var unittype = ((this.form.get('items') as FormArray).at(index) as FormGroup).get('unittype').value;
-    this.addNewItem(unittype)
-  }
-
   async loadData() {
-    this.submitData.unitSizePostData.items.forEach(unit => {
-      this.addItem(unit)
+    console.log("this.submitData" , this.submitData.membershipPostData)
+    this.submitData.membershipPostData.items.forEach(membership => {
+      this.addItem(membership)
     })
   }
 
-  addNewItem(unittype: any) {
+  addNewItem() {
     let items = {};
-    items["unittype"] = unittype;
-    items["size"] = 1000;
+    items["membershipname"] = "";
+    items["duration"] = 12;
     items["charge"] = 1000;
     this.addItem(items);
   }

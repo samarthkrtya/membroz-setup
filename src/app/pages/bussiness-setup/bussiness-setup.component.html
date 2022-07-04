@@ -12,20 +12,32 @@
                 mat-align-tabs="start"
                 [(selectedIndex)]="_defaultTabIndex">
 
-                <mat-tab label="Bussiness" [disabled]="this._tabLists?.[0]?.['disable']">
+                <mat-tab label="Contact" [disabled]="this._tabLists?.[0]?.['disable']">
 
-                  <app-bussiness-details-page
+                  <app-bussiness-contact-detail-page
                     *ngIf="_defaultTabIndex == 0"
                     [submitData]="submitData"
-                    (bussinessSubmitData)="getBussinessSubmittedData($event)">
+                    (contactSubmitData)="getContactSubmittedData($event)">
+                  </app-bussiness-contact-detail-page>
+
+                </mat-tab>
+
+                <mat-tab label="Bussiness" [disabled]="this._tabLists?.[1]?.['disable']">
+
+                  <app-bussiness-details-page
+                    *ngIf="_defaultTabIndex == 1"
+                    [submitData]="submitData"
+                    (bussinessSubmitData)="getBussinessSubmittedData($event)"
+                    (bussinessPreviousData)="bussinessPrevious()"
+                    (bussinessData)="bussinessSkip()">
                   </app-bussiness-details-page>
 
                 </mat-tab>
 
-                <mat-tab label="Bussiness Type" [disabled]="this._tabLists?.[1]?.['disable']">
+                <mat-tab label="Bussiness Type" [disabled]="this._tabLists?.[2]?.['disable']">
 
                   <app-bussiness-type-page
-                    *ngIf="_defaultTabIndex == 1"
+                    *ngIf="_defaultTabIndex == 2"
                     [submitData]="submitData"
                     (bussinessTypeSubmitData)="getBussinessTypeSubmittedData($event)"
                     (bussinessTypePreviousData)="bussinessTypePrevious()"
@@ -34,10 +46,10 @@
 
                 </mat-tab>
 
-                <mat-tab label="Services" [disabled]="this._tabLists?.[2]?.['disable']">
+                <mat-tab label="Services" [disabled]="this._tabLists?.[3]?.['disable']">
 
                   <app-product-service-facility-page
-                    *ngIf="_defaultTabIndex == 2"
+                    *ngIf="_defaultTabIndex == 3"
                     [submitData]="submitData"
                     (productServiceFacilitySubmitData)="getProductServiceFacilitySubmittedData($event)"
                     (productServiceFacilityPreviousData)="productServiceFacilityPrevious()"
@@ -45,10 +57,10 @@
                   </app-product-service-facility-page>
                 </mat-tab>
 
-                <mat-tab label="Membership" [disabled]="this._tabLists?.[3]?.['disable']">
+                <mat-tab label="Membership" [disabled]="this._tabLists?.[4]?.['disable']">
 
                   <app-membership-package-page
-                    *ngIf="_defaultTabIndex == 3"
+                    *ngIf="_defaultTabIndex == 4"
                     [submitData]="submitData"
                     (membershipSubmitData)="getMembershipSubmittedData($event)"
                     (membershipPreviousData)="membershipPrevious()"
@@ -57,9 +69,9 @@
 
                 </mat-tab>
 
-                <mat-tab label="Staffs" [disabled]="this._tabLists?.[4]?.['disable']">
+                <mat-tab label="Staffs" [disabled]="this._tabLists?.[5]?.['disable']">
                   <app-bussiness-staffs-page
-                    *ngIf="_defaultTabIndex == 4"
+                    *ngIf="_defaultTabIndex == 5"
                     [submitData]="submitData"
                     [designationLists]="designationLists"
                     (staffsSubmitData)="getStaffsSubmittedData($event)"
@@ -68,10 +80,11 @@
                   </app-bussiness-staffs-page>
                 </mat-tab>
 
-                <mat-tab label="Review" [disabled]="this._tabLists?.[5]?.['disable']">
+                <mat-tab label="Review" [disabled]="this._tabLists?.[6]?.['disable']">
                   <app-bussiness-review-page
-                    *ngIf="_defaultTabIndex == 5"
+                    *ngIf="_defaultTabIndex == 6"
                     [submitData]="submitData"
+                    [designationLists]="designationLists"
                     (reviewSubmitData)="getReviewSubmittedData($event)"
                     (reviewPreviousData)="reviewPrevious()">
                   </app-bussiness-review-page>
