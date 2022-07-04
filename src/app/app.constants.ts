@@ -16,16 +16,19 @@ export class Configuration {
   constructor(private httpClient: HttpClient) {
 
     this.getIPAddress();
-
+    let authKey = localStorage.getItem('authKey');
     this.headers = this.headers.set('Content-Type', 'application/json');
     this.headers = this.headers.set('Accept', 'application/json');
     this.headers = this.headers.set('Access-Control-Allow-Origin', '*');
-    this.headers = this.headers.set('authKey', '613074c9bfd7602f90774d32');
+    
+    if(authKey){
+      this.headers = this.headers.set('authKey', authKey);
+    }
     
     this.baseUrl = location.origin + '/#';
 
       if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-        //this.Server = 'http://localhost:3001/';
+        // this.Server = 'http://localhost:3001/';
         this.Server = 'https://surgefitnesslifestyle.membroz.com/';
         this.actionUrl = this.Server + 'api/';
       } else {

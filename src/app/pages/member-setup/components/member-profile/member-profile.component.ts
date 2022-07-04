@@ -66,22 +66,22 @@ export class MemberProfileComponent extends BaseComponemntComponent  implements 
     }
   }
 
-async  getForms(){
-    let postData = {};
-    postData["search"] = [];
-    postData["search"].push({ searchfield: "formname", searchvalue: 'member', criteria: "eq", });
+  async getForms(){
+      let postData = {};
+      postData["search"] = [];
+      postData["search"].push({ searchfield: "formname", searchvalue: 'member', criteria: "eq", "datatype" : "text" });
 
-    const url =  "forms/filter";
-    const method =  "POST";
-    
-    await this._commonService
-      .commonServiceByUrlMethodDataAsync(url, method, postData)
-      .then((data : any) => {
-        if (data && data.length != 0) {
-          this.formObj = data[0];
-        }
-      });
-  }
+      const url =  "forms/filter";
+      const method =  "POST";
+      
+      await this._commonService
+        .commonServiceByUrlMethodDataAsync(url, method, postData)
+        .then((data : any) => {
+          if (data && data.length != 0) {
+            this.formObj = data[0];
+          }
+        });
+    }
 
   async LoadData() {
 
@@ -203,7 +203,6 @@ async  getForms(){
           this.customeUploader[fieldname] = new FileUploader(uploaderOptions);
 
           this.customeUploader[fieldname].onBuildItemForm = (fileItem: any, form: FormData): any => {
-            console.log('fileItem =>', fileItem);
             form.append('upload_preset', auth_upload_preset);
             form.append('context', `photo=${element.fieldname}`);
             form.append('tags', element.fieldname);
@@ -214,7 +213,6 @@ async  getForms(){
           };
 
           const upsertResponse = fileItem => {
-            console.log('fileItem =>', fileItem);
             $(".loading_" + element.fieldname).show();
 
             if (fileItem && fileItem.status == 200) {
@@ -242,7 +240,6 @@ async  getForms(){
                 this.formImageArray[fieldnameTags] = [];
               }
               this.formImageArray[fieldnameTags].push(fileInfo);
-              console.log('this.formImageArray =>', this.formImageArray);
               element.value = fileItem.data.secure_url;
               $('#' + fieldnameTags).val(fileItem.data.secure_url);
               this.dynamicForm.controls[element.fieldname].setValue(fileItem.data.secure_url);

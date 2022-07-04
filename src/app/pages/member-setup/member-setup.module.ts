@@ -9,9 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PackagesComponent } from './components/packages/packages.component';
 import { PersonalDetailsComponent } from './components/personal-details/personal-details.component';
 import { ParqFormComponent } from './components/parq-form/parq-form.component';
-import { SafeHtmlPipe } from './safehtml.pipe';
+import { SafeHtmlPipe } from '../../shared/components/safehtml.pipe';
 import { CreditCardDetailsComponent } from './components/credit-card-details/credit-card-details.component';
-
+import { CurrencyPipe } from '@angular/common';
 
 import { FileUploadModule } from 'ng2-file-upload';
 import { Cloudinary } from 'cloudinary-core';
@@ -20,6 +20,7 @@ import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { config } from '../../config';
 import { SignaturePadModule } from '../../shared/signature-pad/signature-pad.module';
 import { ReviewDetailsComponent } from './components/review-details/review-details.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const cloudinaryLib = {
   Cloudinary: Cloudinary
@@ -33,7 +34,7 @@ const cloudinaryLib = {
     PersonalDetailsComponent,
     ParqFormComponent,
     CreditCardDetailsComponent,
-    SafeHtmlPipe,
+    SafeHtmlPipe, 
     ReviewDetailsComponent,
   ],
   imports: [
@@ -44,7 +45,11 @@ const cloudinaryLib = {
     MemberSetupRoutingModule, 
     FileUploadModule,
     CloudinaryModule.forRoot(cloudinaryLib, config),
-    SignaturePadModule
+    SignaturePadModule,
+    SharedModule,
+  ],
+  providers :[
+    CurrencyPipe
   ]
 })
 export class MemberSetupModule { }

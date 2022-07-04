@@ -29,7 +29,7 @@
                                         <div class="staff-title">
                                             <span class="font-bold">{{membership.membershipname}}</span>
                                             <br>
-                                            {{membership?.property?.cost}}
+                                            {{membership?.property?.cost |  myCurrencyPipe  : branchdetails?.currency }}
                                         </div>
                                     </div>
                                 </div>
