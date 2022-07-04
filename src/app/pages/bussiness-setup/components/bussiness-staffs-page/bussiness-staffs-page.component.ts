@@ -6,6 +6,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CommonService } from '../../../../core/services/common/common.service';
 
+import Records from '../../../../../assets/json/records.json';
+
 import {
   BasicValidators, ValidUrlValidator, OnlyNumberValidator, ValidMobileNumberValidator, OnlyNumberOrDecimalValidator,
   ValidPercValidator, equalValidator, matchingPasswords
@@ -60,6 +62,7 @@ export class BussinessStaffsPageComponent extends BaseComponemntComponent implem
   }
 
   async initializeVariables() {
+    console.log("Records", Records);
     return;
   }
 

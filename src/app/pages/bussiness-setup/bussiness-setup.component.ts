@@ -183,7 +183,28 @@ export class BussinessSetupComponent extends BaseComponemntComponent implements 
   }
 
   getReviewSubmittedData(submit_data: any) {
+
     // API CALL
+
+    // console.log("submitData", this.submitData);
+    // console.log("Api Call");
+
+    let method = "POST";
+    let url = "public/bussinessconfiguration";
+
+    return this._commonService
+      .commonServiceByUrlMethodDataAsync(url, method, this.submitData)
+      .then((data: any) => {
+        if (data) {
+           console.log("data", data);
+          //this._router.navigate(['pages/dynamic-dashboard']);
+
+          return;
+        }
+      }, (error) => {
+        console.error(error);
+      })
+
   }
 
   getLocaleFromBrowser() {
