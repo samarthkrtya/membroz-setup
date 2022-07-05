@@ -15,7 +15,7 @@
                     <div class="row membroz-row" *ngIf="membershipList.length > 0">
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6 membroz-col d-flex"
                             *ngFor="let membership of membershipList">
-                            <div class="card card-border" style="height: 150px;" [ngClass]="membership.checked ?  'active' : ''" >
+                            <div class="card card-border" [ngClass]="membership.checked ?  'active' : ''" >
                                 <div class="card-body card-body-10">
                                     <div class="d-flex justify-content-end mb-1">
                                         <section class="example-section">
@@ -24,12 +24,17 @@
                                             </mat-checkbox>
                                         </section>
                                     </div>
-
                                     <div class="text-center">
                                         <div class="staff-title">
                                             <span class="font-bold">{{membership.membershipname}}</span>
                                             <br>
                                             {{membership?.property?.cost |  myCurrencyPipe  : branchdetails?.currency }}
+                                        </div>
+                                        <div class="staff-title" *ngFor="let terms of membership.paymentterm">
+                                            <span class="font-bold">{{terms?.paymentitem?.paymentitemname}}
+                                                 <!-- - ({{terms?.amount |  myCurrencyPipe  : branchdetails?.currency }}) -->
+                                                </span>
+                                            <br>
                                         </div>
                                     </div>
                                 </div>

@@ -2,9 +2,6 @@
     <div class="col-md-12 col-lg-12 col-xl-12 ml-auto d-flex align-items-center flex-column mb-md-0">
         <div class="error-page-head-2 mb-2">Please click on submit</div>
         <div class="mb-3 text-center">This is help us to verify all details</div>
-        <button class="btn btn-primary justify-content-end" type="button" (click)="onSubmit()">
-            Submit
-            <i class="material-icons">done</i>
-        </button>
+        <ng-content select="[Btn]"></ng-content>
     </div>
 </div>

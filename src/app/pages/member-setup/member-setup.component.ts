@@ -23,6 +23,8 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
 
   token : string;
 
+  disableBtn : boolean = false;
+
   decode = {
        '_id': '613074c9bfd7602f90774d32',
        'branchid': '619f698507f63663cdf59381',
@@ -56,7 +58,14 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
     await this._commonService
       .commonServiceByUrlMethodIdOrDataAsync(url, method,'')
       .then((data: any) => { 
-        this.decode = data;
+        // console.log('data =>', data);
+        if(data.error){
+          this.showNotification('top', 'right', `${data.error}`, 'danger');
+          this._router.navigate(['/not-found']);
+          return;
+        }else{
+          this.decode = data;
+        }
       });
   }
 
@@ -68,7 +77,7 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
     await this._commonService
       .commonServiceByUrlMethodIdOrDataAsync(url, method, this.decode.branchid)
       .then((data: any) => {
-        console.log('Branch details =>', data);
+        // console.log('Branch details =>', data);
         this.branchdetails = data;
       });
   }
@@ -112,13 +121,12 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
     this.index = event;
   }
 
-
-
-
  async onSubmit(){
     let model = {};
     let member = {};
     member = this.memberdetails;
+    member['paymentterms'] = [];
+    member['paymentterms'] = this.packagedetails.paymentterm;
     member['membershipid'] = this.packagedetails._id;
     member['membershipstart'] = new Date();
     let newDate = new Date();
@@ -126,17 +134,31 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
     endDateMoment.add(this.packagedetails.property.tenure, 'months');
     newDate = endDateMoment.toDate();
     member['membershipend'] = newDate;
-    model['member'] = member;
-
-    console.log('onSubmit model =>', model);  
+    member['property']['credit_card_no'] = this.carddetails.number;
+    member['property']['exp_month'] = moment(this.carddetails.expiry).get('M');
+    member['property']['exp_year'] = moment(this.carddetails.expiry).get('y');
+    member['property']['name_on_account'] = this.carddetails.holdername;
+    model = member;
+    model['personaldetail'] = this.personaldetails;
+    model['parq'] = this.parqform;
+    
+    console.log('onSubmit model =>', model);
 
     const url = "common/quickmembersetup";
     const method = "POST"; 
 
+    this.disableBtn = true;
     await this._commonService
       .commonServiceByUrlMethodDataAsync(url, method, model)
       .then((data: any) => {
         console.log('onSubmit res details =>', data);
+        this.disableBtn = false;
+        this.showNotification('top', 'right', "Member added successfully !!", 'success');
+        window.location.href = `https://surgefitnesslifestyle.membroz.com/pages/members/profile/${data?._id}`;        
+      },(e)=>{
+        console.log('e ===>', e);
+        this.disableBtn = false;
+        this.showNotification('top', 'right', "Something went wrong !!", 'danger');
       });
     
   }

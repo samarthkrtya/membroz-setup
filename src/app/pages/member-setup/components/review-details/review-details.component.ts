@@ -10,9 +10,7 @@ export class ReviewDetailsComponent extends BaseComponemntComponent implements O
   @Input() carddetails : any;
   @Input() memberdetails : any;
   @Input() packagedetails : any;
-
-  @Output() submit : EventEmitter<any> = new EventEmitter<any>();
-
+ 
   constructor() {
     super();
   }
@@ -23,10 +21,5 @@ export class ReviewDetailsComponent extends BaseComponemntComponent implements O
     console.log('carddetails =>', this.carddetails);
     console.log('packagedetails =>', this.packagedetails);
   }
-
-
-
-  onSubmit(){
-    this.submit.emit();
-  }
+  
 }

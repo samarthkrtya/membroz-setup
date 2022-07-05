@@ -11,5 +11,9 @@ export const AppRoutes: Routes = [
         path: 'member-setup',
         loadChildren: () => import('./pages/member-setup/member-setup.module').then(m => m.MemberSetupModule),
     },
+    {           // Wildcard Route (--Do not change--)
+        path: '**',
+        loadChildren: () => import('./pages/not-found-component/not-found-component.module').then(m => m.NotFoundComponentModule),
+    },
 ];
 export const routing: ModuleWithProviders<any> = RouterModule.forRoot(AppRoutes);
