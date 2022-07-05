@@ -1,14 +1,13 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-
-import { CommonService } from '../../../../core/services/common/common.service';
-
 import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
 import { Cloudinary } from '@cloudinary/angular-5.x';
-import { BasicValidators, ValidMobileNumberValidator } from 'src/app/core/helper/basicValidators';
 import { Subject } from 'rxjs';
-import { BaseComponemntComponent } from 'src/app/shared/base-componemnt/base-componemnt.component';
+
+import { CommonService } from '../../../../core/services/common/common.service';
+import { BasicValidators, ValidMobileNumberValidator } from '../../../../core/helper/basicValidators';
+import { BaseComponemntComponent } from '../../../../shared/base-componemnt/base-componemnt.component';
 
 declare var $ : any;
 

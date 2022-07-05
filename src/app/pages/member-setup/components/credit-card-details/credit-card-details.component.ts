@@ -50,7 +50,6 @@ export class CreditCardDetailsComponent extends BaseComponemntComponent implemen
   async ngOnInit() {
   this.isLoading = true;
    await super.ngOnInit();
-   console.log('this.memberdetails =>', this.memberdetails);
     this.cardForm = this.fb.group({
       'number': [, Validators.compose([OnlyPositiveNumberValidator.insertonlypositivenumber, OnlyNumberValidator.insertonlycardnumber, Validators.required])],
       'expiry': [, Validators.required],

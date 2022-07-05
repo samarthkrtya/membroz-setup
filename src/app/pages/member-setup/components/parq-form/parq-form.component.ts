@@ -343,6 +343,8 @@ export class ParqFormComponent extends BaseComponemntComponent implements OnInit
             }
           }
         }
+      } else if (element.fieldtype == 'signaturepad') {
+        confirmModel['property'][element['fieldname']] = element.value;
       } else if(element.fieldtype == "datepicker") {
         var elems = document.getElementsByName("attributename_" + element._id);
         for(var i = 0; i < elems.length; i++) {

@@ -26,7 +26,7 @@ export class PackagesComponent extends BaseComponemntComponent implements OnInit
     try{
       this.isLoading = true;
       await this.LoadData();
-      console.log('branchdetails =>', this.branchdetails);
+      // console.log('branchdetails =>', this.branchdetails);
       this.isLoading = false;
     }catch(e){
       this.isLoading = false;
@@ -40,7 +40,7 @@ export class PackagesComponent extends BaseComponemntComponent implements OnInit
     postData["search"].push({ "searchfield": "status", "searchvalue": 'active', "criteria": "eq", "datatype": "text" });
     postData["search"].push({"searchfield": "property.type", "searchvalue": false, "criteria": "exists"});
 
-    const url = "memberships/filter";
+    const url = "memberships/filter/view";
     const method = "POST";
 
     await this._commonService
@@ -57,10 +57,8 @@ export class PackagesComponent extends BaseComponemntComponent implements OnInit
   onChange(event : any){
     this.membershipList.map(a=>a.checked = a._id == event.source.id);
   }
-
   
   previous(){
-    console.log('previous to =>',0);
     this.onPrevious.emit(0);
   }
 

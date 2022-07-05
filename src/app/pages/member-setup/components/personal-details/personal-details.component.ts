@@ -232,7 +232,7 @@ export class PersonalDetailsComponent extends BaseComponemntComponent implements
           var value = formfieldObj && formfieldObj.value ? formfieldObj.value : '';
           if(formfieldObj.lookupdata && formfieldObj.lookupdata.length > 0) {
             formfieldObj.lookupdata.forEach(element => {
-              var checkedString = '';
+              var checkedString = ''; 
               if(value && value.length > 0) {
                 var valueObj = value.find(p=>p == element.key);
                 if(valueObj)  checkedString = 'checked="checked"';
@@ -318,6 +318,8 @@ export class PersonalDetailsComponent extends BaseComponemntComponent implements
             }
           }
         }
+      }else if (element.fieldtype == 'signaturepad') {
+        confirmModel['property'][element['fieldname']] = element.value;
       } else if(element.fieldtype == "datepicker") {
         var elems = document.getElementsByName("attributename_" + element._id);
         for(var i = 0; i < elems.length; i++) {
@@ -335,6 +337,7 @@ export class PersonalDetailsComponent extends BaseComponemntComponent implements
         }
       }
     });
+    console.log('confirmModel =>', confirmModel);
     this.onNextPD.emit(confirmModel);
   }
 
