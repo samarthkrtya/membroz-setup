@@ -54,9 +54,6 @@ export class ParqFormComponent extends BaseComponemntComponent implements OnInit
   }
 
   ngAfterViewChecked() {
-    // 626ccd7a15ec4f47c12d6058   yes
-    // 626ccdc915ec4f47c12d605e   no
-
     if(this.formfields.length > 0){
       var tempthis = this;
       this.formfields.forEach((fields) => {
@@ -362,7 +359,6 @@ export class ParqFormComponent extends BaseComponemntComponent implements OnInit
         }
       }
     });
-    console.log('confirmModel =>', confirmModel);
     this.onNextPQF.emit(confirmModel);
   }
 

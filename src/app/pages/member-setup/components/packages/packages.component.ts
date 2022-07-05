@@ -10,8 +10,7 @@ export class PackagesComponent extends BaseComponemntComponent implements OnInit
 
   constructor(private _commonService : CommonService) { 
     super();
-   }
-
+  }
   
   @Input() branchdetails: any;
   membershipList : any[]= [];
@@ -26,7 +25,6 @@ export class PackagesComponent extends BaseComponemntComponent implements OnInit
     try{
       this.isLoading = true;
       await this.LoadData();
-      // console.log('branchdetails =>', this.branchdetails);
       this.isLoading = false;
     }catch(e){
       this.isLoading = false;
@@ -68,7 +66,7 @@ export class PackagesComponent extends BaseComponemntComponent implements OnInit
       super.showNotification("top", "right", "Please Select any Membership !!", "danger");
       return;
     }
-    console.log('packages =>', packages);
+    
     this.onNextPackage.emit(packages);
   }
 

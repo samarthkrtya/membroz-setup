@@ -26,12 +26,13 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
 
   disableBtn : boolean = false;
 
-  decode = {
-       '_id': '613074c9bfd7602f90774d32',
-       'branchid': '619f698507f63663cdf59381',
-       'iat': 1656675229,
-       'exp': 1656761629
-  };
+  // decode = {
+  //      '_id': '613074c9bfd7602f90774d32',
+  //      'branchid': '619f698507f63663cdf59381',
+  //      'iat': 1656675229,
+  //      'exp': 1656761629
+  // };
+  decode = {};
   
   public headers: HttpHeaders = new HttpHeaders();
 
@@ -45,7 +46,6 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
 
   async ngOnInit() {
     await super.ngOnInit();
-    localStorage.setItem('authKey',this.decode?._id);
     await this.getDetailsByToken();
     await this.getBranchDetails();
   }
@@ -53,19 +53,20 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
 
   async getDetailsByToken(){
       
-    const url = `auth/verifytoken/${this.token}`;
+    const url = `auth/verifytoken/`;
     const method = "GET"; 
-
+    
     await this._commonService
-      .commonServiceByUrlMethodIdOrDataAsync(url, method,'')
-      .then((data: any) => { 
-        // console.log('data =>', data);
+      .commonServiceByUrlMethodIdOrDataAsync(url, method,this.token)
+      .then((data: any) => {
+        // console.log('getDetailsByToken data =>', data);
         if(data.error){
           this.showNotification('top', 'right', `${data.error}`, 'danger');
           this._router.navigate(['/not-found']);
           return;
-        }else{
+        }else{ 
           this.decode = data;
+          localStorage.setItem('authKey',data._id);
         }
       });
   }
@@ -76,10 +77,15 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
     const method = "GET"; 
 
     await this._commonService
-      .commonServiceByUrlMethodIdOrDataAsync(url, method, this.decode.branchid)
+      .commonServiceByUrlMethodIdOrDataAsync(url, method, this.decode['branchid'])
       .then((data: any) => {
         // console.log('Branch details =>', data);
-        this.branchdetails = data;
+        if(data.Error == 403){
+          this.showNotification('top', 'right', `${data.message}`, 'danger');
+          this._router.navigate(['/not-found']);
+        }else{
+          this.branchdetails = data;
+        }
       });
   }
   
@@ -142,8 +148,8 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
     member['property']['exp_year'] = moment(this.carddetails.expiry).get('y');
     member['property']['name_on_account'] = this.carddetails.holdername;
     model = member;
-    model['personaldetail'] = this.personaldetails;
-    model['parq'] = this.parqform;
+    model['personaldetail'] = this.personaldetails?.property;
+    model['parq'] = this.parqform?.property;
     
     console.log('onSubmit model =>', model);
 
@@ -157,8 +163,7 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
         console.log('onSubmit res details =>', data);
         this.disableBtn = false;
         this.showNotification('top', 'right', "Member added successfully !!", 'success');
-        
-        window.location.href = `${this.configuration.Server}/auto-login/${this.token}?url=/pages/members/profile/${data?._id}`;
+        window.location.href = `${this.configuration.liveServer}auto-login/${this.token}?url=/pages/members/profile/${data?._id}`;
         // window.location.href = `http://localhost:4200/auto-login/${this.token}?url=/pages/members/profile/${data._id}`;
       },(e)=>{
         console.log('e ===>', e);
