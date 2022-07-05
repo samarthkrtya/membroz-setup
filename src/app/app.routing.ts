@@ -16,4 +16,5 @@ export const AppRoutes: Routes = [
         loadChildren: () => import('./pages/not-found-component/not-found-component.module').then(m => m.NotFoundComponentModule),
     },
 ];
-export const routing: ModuleWithProviders<any> = RouterModule.forRoot(AppRoutes);
+
+export const routing: ModuleWithProviders<any> = RouterModule.forRoot(AppRoutes, { useHash: true });
