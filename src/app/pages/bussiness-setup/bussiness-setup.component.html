@@ -98,7 +98,6 @@
                   <app-bussiness-staffs-page
                     *ngIf="_defaultTabIndex == 5"
                     [submitData]="submitData"
-                    [designationLists]="designationLists"
                     (staffsSubmitData)="getStaffsSubmittedData($event)"
                     (staffsPreviousData)="staffsPrevious()"
                     (staffsSkipData)="staffsSkip()">
@@ -109,7 +108,6 @@
                   <app-bussiness-review-page
                     *ngIf="_defaultTabIndex == 6"
                     [submitData]="submitData"
-                    [designationLists]="designationLists"
                     (reviewSubmitData)="getReviewSubmittedData($event)"
                     (reviewPreviousData)="reviewPrevious()">
                   </app-bussiness-review-page>

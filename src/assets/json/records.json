@@ -263,5 +263,29 @@
         }, 
         "solution" : "salon", 
         "type" : "product"
+    },
+    { 
+        "_id" : "62b4645a1eb00c1ae0cd53b8", 
+        "itemname" : "Receptionist", 
+        "roleid" : "5e9313d89a3014b1c1644fec", 
+        "designationid": "62b9436fe218d91e204cba68",
+        "solution" : "salon", 
+        "type" : "role"
+    },
+    { 
+        "_id" : "62c424028f126b314c665051", 
+        "itemname" : "Hair Stylist", 
+        "roleid" : "62c423d58f126b314c66504e", 
+        "designationid" :"62b6f3035436cd049ca662af",
+        "solution" : "salon", 
+        "type" : "role"
+    },
+    { 
+        "_id" : "62c424528f126b314c665054", 
+        "itemname" : "Makeup Artist", 
+        "roleid" : "62c4242a8f126b314c665053", 
+        "designationid" :"62b6f2eb5436cd049ca662ac",
+        "solution" : "salon", 
+        "type" : "role"
     }
 ]

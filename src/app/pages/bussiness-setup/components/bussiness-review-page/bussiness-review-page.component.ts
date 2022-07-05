@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { BaseComponemntComponent } from '../../../../shared/base-componemnt/base-componemnt.component';
 
+import Records from '../../../../../assets/json/records.json';
+
 declare var $: any;
 @Component({
   selector: 'app-bussiness-review-page',
@@ -11,12 +13,14 @@ declare var $: any;
 })
 export class BussinessReviewPageComponent extends BaseComponemntComponent implements OnInit {
 
-  @Input('designationLists') designationLists: any = [];
+  
   @Input('submitData') submitData: any = {};
   @Output() reviewSubmitData: EventEmitter<any> = new EventEmitter<any>();
   @Output() reviewPreviousData: EventEmitter<any> = new EventEmitter<any>();
 
   disableBtn: boolean = false;
+
+  designationLists: any [] = [];
 
   constructor() {
 
@@ -38,11 +42,20 @@ export class BussinessReviewPageComponent extends BaseComponemntComponent implem
 
   async initializeVariables() {
 
+    this.designationLists = [];
+
+    if(Records && Records.length > 0 && this.submitData && this.submitData.solutiontype !== "") {
+      var solutiontype = this.submitData.solutiontype;
+      this.designationLists = Records.filter(function(item){
+        return item?.solution.toLowerCase() == solutiontype.toLowerCase() && item.type == "role";
+      });
+    }
+
     if(this.submitData && this.submitData.staffsPostData && this.submitData.staffsPostData.items && this.submitData.staffsPostData.items.length > 0 ) {
       this.submitData.staffsPostData.items.forEach(element => {
-        var designObj = this.designationLists.find(p=>p._id == element.designation);
+        var designObj = this.designationLists.find(p=>p.designationid == element.designation);
         if(designObj) {
-          element.designationname = designObj.title;
+          element.designationname = designObj.itemname;
         }
       });
     }

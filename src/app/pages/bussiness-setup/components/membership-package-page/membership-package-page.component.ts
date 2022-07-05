@@ -39,6 +39,8 @@ export class MembershipPackagePageComponent extends BaseComponemntComponent impl
 
       await super.ngOnInit()
       await this.initializeVariables();
+      
+      console.log("this.submitData", this.submitData);
 
       if(this.submitData && this.submitData.membershipPostData && this.submitData.membershipPostData.items && this.submitData.membershipPostData.items.length > 0 ) {
         await this.loadData();
@@ -62,7 +64,7 @@ export class MembershipPackagePageComponent extends BaseComponemntComponent impl
     return this.fb.group({
       'membershipname': [item.membershipname, Validators.required],
       'duration': [item.duration, Validators.required],
-      'checked': [],
+      'checked': [item.checked],
       'charge': [item.charge, Validators.required],
     });
   }
@@ -97,7 +99,6 @@ export class MembershipPackagePageComponent extends BaseComponemntComponent impl
   }
 
   async loadData() {
-    console.log("this.submitData" , this.submitData.membershipPostData)
     this.submitData.membershipPostData.items.forEach(membership => {
       this.addItem(membership)
     })
