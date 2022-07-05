@@ -2,6 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import moment from 'moment';
+import { Configuration } from 'src/app/app.constants';
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { BaseComponemntComponent } from 'src/app/shared/base-componemnt/base-componemnt.component';
 @Component({
@@ -34,7 +35,7 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
   
   public headers: HttpHeaders = new HttpHeaders();
 
-  constructor(private _commonService : CommonService , private _route: ActivatedRoute) {
+  constructor(private _commonService : CommonService , private _route: ActivatedRoute , private configuration : Configuration) {
     super();
 
     this._route.params.forEach((param)=>{
@@ -122,6 +123,8 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
   }
 
  async onSubmit(){
+   
+
     let model = {};
     let member = {};
     member = this.memberdetails;
@@ -154,7 +157,9 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
         console.log('onSubmit res details =>', data);
         this.disableBtn = false;
         this.showNotification('top', 'right', "Member added successfully !!", 'success');
-        window.location.href = `https://surgefitnesslifestyle.membroz.com/pages/members/profile/${data?._id}`;        
+        
+        window.location.href = `${this.configuration.Server}/auto-login/${this.token}?url=/pages/members/profile/${data?._id}`;
+        // window.location.href = `http://localhost:4200/auto-login/${this.token}?url=/pages/members/profile/${data._id}`;
       },(e)=>{
         console.log('e ===>', e);
         this.disableBtn = false;
