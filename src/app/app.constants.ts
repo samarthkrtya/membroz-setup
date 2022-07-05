@@ -26,10 +26,11 @@ export class Configuration {
     }
     
     this.baseUrl = location.origin + '/#';
+    
 
       if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
         // this.Server = 'http://localhost:3001/';
-        this.Server = 'https://app.membroz.com/';
+        this.Server = 'https://surgefitnesslifestyle.membroz.com';
         this.actionUrl = this.Server + 'api/';
       } else {
         this.Server = 'https://' + location.hostname + '/';
