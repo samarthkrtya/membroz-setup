@@ -2,11 +2,36 @@
     <div class="container-fluid">
       <div class="row">
         <div class="offset-xl-2 col-xl-8">
-          <div class="text-center pt-3 pb-2">
-            <img style="max-width: 250px;max-height: 130px;" class="logo-main-img" src="https://res.cloudinary.com/dlopjt9le/image/upload/v1651125956/qyg3guvxtscgzksvf8qv.png"></div>
+          <div class="text-center pt-3 pb-2" style="background-color: #2E408E;">
+            <img 
+              style="max-width: 250px;max-height: 130px;" 
+              class="logo-main-img" src="https://res.cloudinary.com/dlopjt9le/image/upload/v1586525260/mlh7afpkmoldnuo3qltc.png">
+          </div>
           <div class="font-16 text-center">Let's get your all setup, so you can begin to start using our services</div>
           <div class="card">
             <div class="p-3">
+
+              <div class="row">
+
+                <div class="container">
+                  <div class="progress blue float-right" data-percentage="0">
+                    <span class="progress-left">
+                      <span class="progress-bar"></span>
+                    </span>
+                    <span class="progress-right">
+                      <span class="progress-bar"></span>
+                    </span>
+                    <div class="progress-value">
+                      <div> {{this.progress}}% </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              
+
   
               <mat-tab-group 
                 mat-align-tabs="start"
@@ -89,8 +114,6 @@
                     (reviewPreviousData)="reviewPrevious()">
                   </app-bussiness-review-page>
                 </mat-tab>
-
-                <mat-progress-bar> </mat-progress-bar>
 
               </mat-tab-group>
   

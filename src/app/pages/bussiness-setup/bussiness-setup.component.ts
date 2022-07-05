@@ -5,11 +5,13 @@ import { Subject } from 'rxjs';
 import { BaseComponemntComponent } from '../../shared/base-componemnt/base-componemnt.component';
 
 import { CommonService } from '../../core/services/common/common.service';
+import { style } from '@angular/animations';
+
+declare var $: any;
 @Component({
   selector: 'app-bussiness-setup',
   templateUrl: './bussiness-setup.component.html',
-  styles: [
-  ]
+  styleUrls: ['./bussiness-setup.component.scss']
 })
 export class BussinessSetupComponent extends BaseComponemntComponent implements OnInit, OnDestroy{
 
@@ -32,6 +34,8 @@ export class BussinessSetupComponent extends BaseComponemntComponent implements 
 
   designationLists: any [] = [];
 
+  progress = 0;
+  
   constructor(
     private _commonService: CommonService
   ) {
@@ -68,11 +72,52 @@ export class BussinessSetupComponent extends BaseComponemntComponent implements 
     this.submitData["staffsPostData"] = {};
 
     this.designationLists = [];
+
     return;
   }
 
   
   async onTabClick(current: any) {
+
+    switch (current) {
+      case 0:
+        this.progress = 0;
+        $(".progress-right .progress-bar").css("animation", "loading-0 0.5s linear forwards");
+        $(".progress-left .progress-bar").css("animation", "0");
+        break;
+      case 1:
+        this.progress = 20;
+        $(".progress-right .progress-bar").css("animation", "loading-20 0.5s linear forwards");
+        $(".progress-left .progress-bar").css("animation", "0");
+        break;
+      case 2:
+         this.progress = 40;
+         $(".progress-right .progress-bar").css("animation", "loading-40 0.5s linear forwards");
+         $(".progress-left .progress-bar").css("animation", "0");
+        break;
+      case 3:
+        this.progress = 50;
+        $(".progress-right .progress-bar").css("animation", "loading-50 0.5s linear forwards");
+        $(".progress-left .progress-bar").css("animation", "0");
+        break;
+      case 4:
+        this.progress = 60;
+        $(".progress-right .progress-bar").css("animation", "loading-50 0.5s linear forwards");
+        $(".progress-left .progress-bar").css("animation", "loading-10 0.5s linear forwards 0.5s");
+        break;
+      case 5:
+        this.progress = 80;
+        $(".progress-right .progress-bar").css("animation", "loading-50 0.5s linear forwards");
+        $(".progress-left .progress-bar").css("animation", "loading-30 0.5s linear forwards 0.5s");
+        break;
+      case 6:
+        this.progress = 100;
+        $(".progress-right .progress-bar").css("animation", "loading-50 0.5s linear forwards");
+        $(".progress-left .progress-bar").css("animation", "loading-50 0.5s linear forwards 0.5s");
+    }
+
+    $('.progress').attr('data-percent', this.progress);
+
     this._defaultTabIndex = current;
     var tabObj = this._tabLists.find(p=>p.index == current);
     if(tabObj) {
@@ -287,8 +332,7 @@ export class BussinessSetupComponent extends BaseComponemntComponent implements 
     this.submitData["bussinessPostData"]["days"].push({ "value": "Sunday", "checked": false });
   
   }
-
-
+  
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

@@ -340,8 +340,6 @@ export class DynamicAutocompleteComponent implements OnInit, ControlValueAccesso
       .GetByfilterLookupNameAsync(postData)
       .then(async (data: any) => {
         
-        console.log("data", data);
-
         if(data && data[0]) {
           this.options = [];
           data.forEach(responseData => {
