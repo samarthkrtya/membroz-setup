@@ -58,22 +58,21 @@ export class BussinessTypePageComponent extends BaseComponemntComponent implemen
     return (this.form.get('items') as FormArray).controls;
   }
 
-
   async initializeVariables() {
     
     this.items = [];
-    this.items.push({ name: "club", title: "Club, Resort & Hotel", checked: false });
-    this.items.push({ name: "tour", title: "Tour, Travel & Timeshare", checked: false });
-    this.items.push({ name: "gym", title: "Gym, Yoga & Fitness Center", checked: false });
-    this.items.push({ name: "salon", title: "Spa, Salon & Wellness Center", checked: false });
-    this.items.push({ name: "restaurant", title: "Restaurant, Pubs & Bar", checked: false });
-    this.items.push({ name: "workshop", title: "Service, Workshop & Maintenance", checked: false });
-    this.items.push({ name: "dietician", title: "Dietician & Nutritionist", checked: false });
-    this.items.push({ name: "society", title: "Community, Association & Society", checked: false });
-    this.items.push({ name: "agency", title: "Franchise, Distributor & Agency", checked: false });
-    this.items.push({ name: "event", title: "Venue, Facility & Event Booking", checked: false });
-    this.items.push({ name: "coaching", title: "Consulting and Coaching", checked: false });
-    this.items.push({ name: "rental", title: "Fleet & Rental Management", checked: false });
+    this.items.push({ name: "club", title: "Club, Resort & Hotel", checked: false, src: '../../../../../assets/img/bussiness-types/club-icon.png' });
+    this.items.push({ name: "tour", title: "Tour, Travel & Timeshare", checked: false, src: '../../../../../assets/img/bussiness-types/tour-travel-icon.png' });
+    this.items.push({ name: "gym", title: "Gym, Yoga & Fitness Center", checked: false, src: '../../../../../assets/img/bussiness-types/gym-icon.png' });
+    this.items.push({ name: "salon", title: "Spa, Salon & Wellness Center", checked: false, src: '../../../../../assets/img/bussiness-types/salon-icon.png' });
+    this.items.push({ name: "restaurant", title: "Restaurant, Pubs & Bar", checked: false, src: '../../../../../assets/img/bussiness-types/restaurant-icon.png' });
+    this.items.push({ name: "workshop", title: "Service, Workshop & Maintenance", checked: false, src: '../../../../../assets/img/bussiness-types/service-icon.png' });
+    this.items.push({ name: "dietician", title: "Dietician & Nutritionist", checked: false, src: '../../../../../assets/img/bussiness-types/dietician-icon.png' });
+    this.items.push({ name: "society", title: "Community, Association & Society", checked: false, src: '../../../../../assets/img/bussiness-types/community-icon.png' });
+    this.items.push({ name: "agency", title: "Franchise, Distributor & Agency", checked: false, src: '../../../../../assets/img/bussiness-types/insurance-icon.png' });
+    this.items.push({ name: "event", title: "Venue, Facility & Event Booking", checked: false, src: '../../../../../assets/img/bussiness-types/event-icon.png' });
+    this.items.push({ name: "coaching", title: "Consulting and Coaching", checked: false, src: '../../../../../assets/img/bussiness-types/coaching-icon.png' });
+    this.items.push({ name: "rental", title: "Fleet & Rental Management", checked: false, src: '../../../../../assets/img/bussiness-types/car-icon.png' });
     return;
   }
 
