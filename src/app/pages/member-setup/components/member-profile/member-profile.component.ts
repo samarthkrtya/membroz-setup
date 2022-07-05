@@ -76,9 +76,12 @@ export class MemberProfileComponent extends BaseComponemntComponent  implements 
       await this._commonService
         .commonServiceByUrlMethodDataAsync(url, method, postData)
         .then((data : any) => {
+          
           if (data && data.length != 0) {
             this.formObj = data[0];
           }
+        }).catch((e)=>{
+          console.log('e =>', e);
         });
     }
 
@@ -95,7 +98,7 @@ export class MemberProfileComponent extends BaseComponemntComponent  implements 
     await this._commonService
       .commonServiceByUrlMethodDataAsync(url, method, postData)
       .then((data: any) => {
-        console.log('data =>', data);
+        
           this.allFields = [];
           this.allFields = data;
 
