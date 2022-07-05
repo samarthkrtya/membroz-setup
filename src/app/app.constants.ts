@@ -20,6 +20,8 @@ export class Configuration {
     this.headers = this.headers.set('Content-Type', 'application/json');
     this.headers = this.headers.set('Accept', 'application/json');
     this.headers = this.headers.set('Access-Control-Allow-Origin', '*');
+    this.headers = this.headers.set('authKey', '5e954c7b9df11624f81e785b');
+    
     
     if(authKey){
       this.headers = this.headers.set('authKey', authKey);
@@ -33,7 +35,8 @@ export class Configuration {
         this.Server = 'https://surgefitnesslifestyle.membroz.com';
         this.actionUrl = this.Server + 'api/';
       } else {
-        this.Server = 'https://' + location.hostname + '/';
+        //this.Server = 'https://' + location.hostname + '/';
+        this.Server = 'https://app.membroz.com/';
         this.actionUrl = this.Server + 'api/';
       }
   }
