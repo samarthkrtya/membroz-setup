@@ -59,14 +59,25 @@ export class BussinessContactDetailPageComponent extends BaseComponemntComponent
   selectedCountryISO = CountryISO.India;
 
 
+  uploader: FileUploader | undefined;
+  response: any;
+  customeUploader: any;
+
+  formImageArray: any[] = [];
+  
+  defaultlogo: any;
+
+
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cloudinary: Cloudinary,
   ) {
     super();
 
     this.pagename = "app-bussiness-contact-detail-page";
 
     this.form = fb.group({
+      'logo': [''],
       'fullname': ['', Validators.required],
       'email': ['', Validators.compose([Validators.required, BasicValidators.email])],
       'phone': [''],
@@ -80,6 +91,7 @@ export class BussinessContactDetailPageComponent extends BaseComponemntComponent
    async ngOnInit() {
     try {
       await this.initlizationVariables();
+      await this.imageConfigration();
       await this.loadData();
     } catch(error) {
       console.error("error", error);
@@ -95,10 +107,99 @@ export class BussinessContactDetailPageComponent extends BaseComponemntComponent
 
   get f() { return this.form.controls; }
 
+  async imageConfigration() {
+
+    var auth_cloud_name = this.cloudinary.config().cloud_name;
+    var auth_upload_preset = this.cloudinary.config().upload_preset;
+
+    const uploaderOptions: FileUploaderOptions = {
+      url: `https://api.cloudinary.com/v1_1/${auth_cloud_name}/upload`,
+      autoUpload: true,
+      isHTML5: true,
+      removeAfterUpload: true,
+      headers: [
+        {
+          name: "X-Requested-With",
+          value: "XMLHttpRequest",
+        },
+      ],
+    };
+
+    this.customeUploader = new FileUploader(uploaderOptions);
+    this.customeUploader.onBuildItemForm = (
+      fileItem: any,
+      form: FormData
+    ): any => {
+      form.append("upload_preset", auth_upload_preset);
+      form.append("context", `photo=${"item_logo"}`);
+      form.append("tags", "item_logo");
+      form.append("file", fileItem);
+      fileItem.withCredentials = false;
+      return { fileItem, form };
+    };
+
+    const upsertResponse = (fileItem: any) => {
+      $(".loading").show();
+      if (fileItem && fileItem.status == 200) {
+
+        let fieldnameTags = fileItem.data.tags[0];
+
+        if (!this.formImageArray) {
+          this.formImageArray = [];
+        }
+
+        let extension: any;
+        if (fileItem.file) {
+          extension = fileItem.file.name.substr(
+            fileItem.file.name.lastIndexOf(".") + 1
+          );
+        }
+        let fileInfo = {
+          attachment: fileItem.data.secure_url,
+          extension: extension,
+          originalfilename: fileItem.data.original_filename,
+        };
+
+        this.defaultlogo = fileInfo.attachment;
+
+        this.f.logo.setValue(this.defaultlogo);
+        
+        $("#" + fieldnameTags).val(fileItem.data.secure_url);
+
+        $(".loading").hide();
+      }
+    };
+
+    this.customeUploader.onCompleteItem = (
+      item: any,
+      response: string,
+      status: number,
+      headers: ParsedResponseHeaders
+    ) =>
+      upsertResponse({
+        file: item.file,
+        status,
+        data: JSON.parse(response),
+      });
+    this.customeUploader.onProgressItem = (fileItem: any, progress: any) =>
+      upsertResponse({
+        file: fileItem.file,
+        progress,
+      });
+    
+    return;
+  }
+
   async loadData() {
 
     
     if(this.submitData && this.submitData.contactPostData) {
+
+
+      if(this.submitData.contactPostData && this.submitData.contactPostData.logo) {
+        this.form.get("logo").setValue(this.submitData.contactPostData.logo);
+        this.defaultlogo = this.submitData.contactPostData.logo;
+      }
 
       if(this.submitData.contactPostData && this.submitData.contactPostData.fullname) {
         this.form.get("fullname").setValue(this.submitData.contactPostData.fullname);

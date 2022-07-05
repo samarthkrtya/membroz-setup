@@ -62,6 +62,7 @@ export class MembershipPackagePageComponent extends BaseComponemntComponent impl
     return this.fb.group({
       'membershipname': [item.membershipname, Validators.required],
       'duration': [item.duration, Validators.required],
+      'checked': [],
       'charge': [item.charge, Validators.required],
     });
   }
