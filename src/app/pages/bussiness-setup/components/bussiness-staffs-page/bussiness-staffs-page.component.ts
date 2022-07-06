@@ -22,7 +22,6 @@ declare var $: any;
 })
 export class BussinessStaffsPageComponent extends BaseComponemntComponent implements OnInit {
 
-  @Input('designationLists') designationLists: any = [];
   @Input('submitData') submitData: any = {};
   @Output() staffsSubmitData: EventEmitter<any> = new EventEmitter<any>();
   @Output() staffsPreviousData: EventEmitter<any> = new EventEmitter<any>();
@@ -31,6 +30,8 @@ export class BussinessStaffsPageComponent extends BaseComponemntComponent implem
   form: FormGroup;
   items: FormArray;
   submitted: boolean;
+
+  designationLists: any [] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -49,7 +50,7 @@ export class BussinessStaffsPageComponent extends BaseComponemntComponent implem
     try {
       await super.ngOnInit()
       await this.initializeVariables()
-      if(this.submitData && this.submitData.staffPostData && this.submitData.staffPostData.items && this.submitData.staffPostData.items.length > 0 ) {
+      if(this.submitData && this.submitData.staffsPostData && this.submitData.staffsPostData.items && this.submitData.staffsPostData.items.length > 0 ) {
         await this.loadData();
       } else {
         //this.addNewItem(this.designationLists[0]['_id']);
@@ -62,15 +63,24 @@ export class BussinessStaffsPageComponent extends BaseComponemntComponent implem
   }
 
   async initializeVariables() {
-    console.log("Records", Records);
+    
+    this.designationLists = [];
+
+    if(Records && Records.length > 0 && this.submitData && this.submitData.solutiontype !== "") {
+      var solutiontype = this.submitData.solutiontype;
+      this.designationLists = Records.filter(function(item){
+        return item?.solution.toLowerCase() == solutiontype.toLowerCase() && item.type == "role";
+      });
+    }
     return;
   }
 
   createItem(item: any): FormGroup {
     return this.fb.group({
       'designation':[item.designation, Validators.required],
+      'role':[item.role],
       'name': [item.name, Validators.required],
-      'email': [item.name, Validators.compose([Validators.required, BasicValidators.email])],
+      'email': [item.email, Validators.compose([Validators.required, BasicValidators.email])],
     });
   }
   
@@ -90,20 +100,20 @@ export class BussinessStaffsPageComponent extends BaseComponemntComponent implem
       this.showNotification("top", "right", "Fill required fields !!", "danger");
       return;
     } else {
-      
       this.staffsSubmitData.emit(value);
     }
   }
 
   async loadData() {
-    this.submitData.staffPostData.items.forEach(staff => {
+    this.submitData.staffsPostData.items.forEach(staff => {
       this.addItem(staff)
     })
   }
 
-  addNewItem(designation: any) {
+  addNewItem(item: any) {
     let items = {};
-    items["designation"] = designation;
+    items["designation"] = item.designationid;
+    items["role"] = item.roleid;
     items["name"] = "";
     items["email"] = "";
     this.addItem(items);
@@ -111,7 +121,12 @@ export class BussinessStaffsPageComponent extends BaseComponemntComponent implem
 
   async addCloneItem(index: any) {
     var designation = ((this.form.get('items') as FormArray).at(index) as FormGroup).get('designation').value;
-    this.addNewItem(designation)
+    var role = ((this.form.get('items') as FormArray).at(index) as FormGroup).get('role').value;
+    let item = {
+      designationid: designation,
+      roleid: role
+    }
+    this.addNewItem(item)
   }
 
   previous() {

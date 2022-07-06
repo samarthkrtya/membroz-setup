@@ -61,8 +61,7 @@
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/jqvmap/dist/jquery.vmap.min.js",
               "node_modules/jqvmap/dist/maps/jquery.vmap.world.js",
-              "node_modules/jquery-validation/dist/jquery.validate.min.js",
-              "src/assets/js/clover-sdk.js"
+              "node_modules/jquery-validation/dist/jquery.validate.min.js"
             ]
           },
           "configurations": {
@@ -159,8 +158,7 @@
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/jqvmap/dist/jquery.vmap.min.js",
               "node_modules/jqvmap/dist/maps/jquery.vmap.world.js",
-              "node_modules/jquery-validation/dist/jquery.validate.min.js",
-              "src/assets/js/clover-sdk.js"
+              "node_modules/jquery-validation/dist/jquery.validate.min.js"
             ],
             "assets": [
               "src/favicon.ico",

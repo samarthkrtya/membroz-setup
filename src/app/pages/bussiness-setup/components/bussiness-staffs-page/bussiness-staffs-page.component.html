@@ -21,8 +21,8 @@
 
                 <div class="dropdown-menu dropdown-menu-right">
 
-                    <a class="dropdown-item" *ngFor="let item of designationLists" (click)="addNewItem(item._id)">
-                        Add {{item.title}}
+                    <a class="dropdown-item" *ngFor="let item of designationLists" (click)="addNewItem(item)">
+                        Add {{item.itemname}}
                     </a>
                                                     
                 </div>
@@ -51,13 +51,17 @@
                         <mat-form-field class="example-full-width mat-form-field-space-remove" >
                             <mat-select formControlName="designation">
                                 <mat-option 
-                                    [value]="item._id" 
+                                    [value]="item.designationid" 
                                     disabled
                                     *ngFor="let item of designationLists">
-                                    {{item.title}}
+                                    {{item.itemname}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+
+                        <input
+                            type="hidden"
+                            formControlName="role" >
 
                         <div
                             [hidden]="this.form.get('items').at(i).get('designation').valid || (this.form.get('items').at(i).get('designation').pristine && !submitted)"

@@ -32,8 +32,6 @@ export class BussinessSetupComponent extends BaseComponemntComponent implements 
   submitData: any = {};
   visible: boolean = false;
 
-  designationLists: any [] = [];
-
   progress = 0;
   
   constructor(
@@ -51,8 +49,7 @@ export class BussinessSetupComponent extends BaseComponemntComponent implements 
       await super.ngOnInit();
       await this.initializeVariables();
       await this.getLocaleFromBrowser();
-      await this.getDesignation();
-      await this.getDefaultValue()
+      //await this.getDefaultValue()
     } catch(error) {
       console.error(error)
     } finally {
@@ -70,8 +67,6 @@ export class BussinessSetupComponent extends BaseComponemntComponent implements 
     this.submitData["productServiceFacilityPostData"] = [];
     this.submitData["membershipPostData"] = {};
     this.submitData["staffsPostData"] = {};
-
-    this.designationLists = [];
 
     return;
   }
@@ -237,6 +232,12 @@ export class BussinessSetupComponent extends BaseComponemntComponent implements 
     let method = "POST";
     let url = "public/bussinessconfiguration";
 
+    console.log("method", method);
+    console.log("url", url);
+    console.log("submitData", this.submitData);
+
+    //return;
+
     return this._commonService
       .commonServiceByUrlMethodDataAsync(url, method, this.submitData)
       .then((data: any) => {
@@ -253,31 +254,67 @@ export class BussinessSetupComponent extends BaseComponemntComponent implements 
   }
 
   getLocaleFromBrowser() {
+    console.log("navigator", navigator)
 
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.showPosition, this.handleError);
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+
+
+    console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
+
+    return;
   }
 
-  getDesignation() {
 
-    let method = "POST";
-    let url = "designations/filter";
 
-    let postData = {};
-    postData["search"] = [];
-    postData["search"].push({ "searchfield": "status", "searchvalue": "active", "criteria": "eq" });
-
-    return this._commonService
-      .commonServiceByUrlMethodDataAsync(url, method, postData)
-      .then((data: any) => {
-        if (data) {
-          this.designationLists = [];
-          this.designationLists = data;
-          return;
-        }
-      }, (error) => {
-        console.error(error);
-      })
-      
+  handleError(error) {
+    let errorStr;
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        errorStr = 'User denied the request for Geolocation.';
+        break;
+      case error.POSITION_UNAVAILABLE:
+        errorStr = 'Location information is unavailable.';
+        break;
+      case error.TIMEOUT:
+        errorStr = 'The request to get user location timed out.';
+        break;
+      case error.UNKNOWN_ERROR:
+        errorStr = 'An unknown error occurred.';
+        break;
+      default:
+        errorStr = 'An unknown error occurred.';
+    }
+    console.error('Error occurred: ' + errorStr);
   }
+  
+  showPosition(position) {
+
+    console.log( "Latitude", position.coords.latitude);
+    console.log( "longitude", position.coords.longitude);
+
+    var latitude  = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAEgSROnoWhlvU0hEox7NKpXM9wRXXEfKo`)
+    .then( res => res.json())
+    .then(response => {
+        console.log("User's Location Info: ", response)
+     })
+     .catch(status => {
+        console.log('Request failed.  Returned status of', status)
+     })
+  }
+
+
+  reverseGeocodingWithGoogle(latitude, longitude) {
+    console.log("reverseGeocodingWithGoogle")
+    
+  }
+
 
   async getDefaultValue() {
 
