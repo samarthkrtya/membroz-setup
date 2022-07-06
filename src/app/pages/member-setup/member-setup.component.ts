@@ -59,14 +59,15 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
     await this._commonService
       .commonServiceByUrlMethodIdOrDataAsync(url, method,this.token)
       .then((data: any) => {
-        // console.log('getDetailsByToken data =>', data);
+        console.log('getDetailsByToken data =>', data);
         if(data.error){
           this.showNotification('top', 'right', `${data.error}`, 'danger');
-          this._router.navigate(['/not-found']);
+          this._router.navigate(['/not-found']);          
           return;
         }else{ 
           this.decode = data;
           localStorage.setItem('authKey',data._id);
+          localStorage.setItem('domain',data?.domain);
         }
       });
   }
@@ -163,7 +164,15 @@ export class MemberSetupComponent extends BaseComponemntComponent implements OnI
         console.log('onSubmit res details =>', data);
         this.disableBtn = false;
         this.showNotification('top', 'right', "Member added successfully !!", 'success');
-        window.location.href = `${this.configuration.liveServer}auto-login/${this.token}?url=/pages/members/profile/${data?._id}`;
+
+        let Server;
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+          Server = 'http://localhost:4200/';
+        } else {
+          Server = this.decode['domain'];
+        }
+
+        window.location.href = `${Server}auto-login/${this.token}?url=/pages/members/profile/${data?._id}`;
         // window.location.href = `http://localhost:4200/auto-login/${this.token}?url=/pages/members/profile/${data._id}`;
       },(e)=>{
         console.log('e ===>', e);
